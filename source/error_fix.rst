@@ -41,7 +41,7 @@ The use of the tag is optional you can also do
 When you want to amend past commits with changes in the working tree,
 you cannot checkout the past commit because the worktree is dirty.
 
- You can use
+You can use
 :gitdoc:`git stash <git-stash.html>` to come back to the original
 worktree or work in a linked temporary working directory::
 
@@ -173,6 +173,71 @@ I continue the rebase::
   1 files changed, 22 insertions(+), 14 deletions(-)
   Successfully rebased and updated refs/heads/master.
 
+Checking your rebase and undoing it
+-----------------------------------
+
+The rebase can be a dangerous operation, sometime I lost a file by
+deleting a commit that add a file within an interactive rebase. The
+head *before* a rebase is stored in ORIG_HEAD. All dangerous
+operations like *rebase*, *merge*, *pull*, *am*  modify this
+reference, so you can only use it to refer to the HEAD *before* the
+last dangerous operation (but a simple commit don't change it).
+
+To see what you have changed in the repository since last dangerous
+operation::
+
+  git diff ORIG_HEAD HEAD
+
+If it was an interactive rebase to clean your history you expect that
+you preserved the global state of your repository, and to have an
+empty answer.
+
+To see what commits are in HEAD and not in ORIG_HEAD::
+
+  git log ORIG_HEAD..HEAD
+
+
+You can also use visualization tools like *tig* ou *gitk*::
+
+  gitk ORIG_HEAD HEAD
+  gitk ORIG_HEAD --not --all
+  tig ORIG_HEAD..HEAD
+
+Or::
+
+  tig ORIG_HEAD...HEAD
+
+and you may want to toggle revision graph visualization with `g` key.
+
+After an interactive rebase you may want to check the commits since
+the begining of the rebase in both branches. You will use::
+
+   git log --boundary --pretty=oneline --left-right  ORIG_HEAD...HEAD
+
+And if your rebase went wrong you restore the previous state with::
+
+  git reset --hard ORIG_HEAD
+
+If you have lost your ORIG_HEAD after a rebase because you did an other operation
+that reset it, you can still find the previous head which is now a
+dangling ref, unless you have garbage collected it.
+
+You need to inspect your reflog and find the first commit before the
+rebase, in an interactive rebase the process begin with a checkout of
+the commit on which you rebase, so the previous commit was the head
+before the rebase::
+
+  git reflog
+
+  ....
+  95512de HEAD@{7}:  rebase -i (pick): fixin typos
+  a1b9b5c HEAD@{8}: checkout: moving from master to a1b9b5c
+  c819a90 HEAD@{9}: commit: adding myfile.txt
+
+In this example the previous head was the ninth older commit HEAD\@{9} with an
+abbreviated commit c819a90.
+
+
 dangling objects
 ----------------
 
@@ -180,23 +245,23 @@ see :gitdoc:`Git user manual: dangling-objects
 <user-manual.html#dangling-objects>`
 
 After rebasing the old
-branch head is no longer in a branch and so it is dangling, usually
-we just want to prune it. We can inspect it with
+branch head is no longer in a branch and so it is dangling, it will be
+garbage collected when it will be no more referenced.
 
-::
+As explained in the previous section it is used in the reflog, so it
+will be garbage collected after expiring the reflog.
 
-    $ gitk <dangling-commit-sha> --not --all
-    # or
-    $ gitk <dangling-commit-sha> <rebased-new-head>
+Sometime, when we are certain our rebase is correct and we will never
+want to come back to previous state, we want to clean these dangling
+objects. We use::
 
-then
+  $ git prune
 
-::
+If we want to do the opposite, i.e. preventing this dangling commit to
+be lost some next garbage collection away we can point a new branch at
+it::
 
-    $ git prune
-    # or
-    $ git branch <recovery-branch> <dangling-commit-sha>
-
+  $ git branch <recovery-branch> <dangling-commit-sha>
 
 ..  local variables
 
