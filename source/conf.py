@@ -248,5 +248,9 @@ texinfo_documents = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 #intersphinx_mapping = {'http://docs.python.org/': None}
-extlinks = {'github': ('http://help.github.com/%s', 'github: '),
-            'gitdoc': ('http://localhost/doc/git-doc/%s', 'git doc: ')}
+local_ref = False
+extlinks = {'github': ('http://help.github.com/%s', 'github: ')}
+if local_ref:
+    extlinks['gitdoc'] = ('http://localhost/doc/git-doc/%s.html', 'git doc: ')
+else:
+    extlinks['gitdoc'] = ('http://git-scm.com/docs/%s', 'git doc: ')
