@@ -1,7 +1,11 @@
 Repository Info
 ===============
 
--  to review changes in the whole repository
+Refs: :gitdoc:`git-log <git-log>` :gitdoc:`git-diff <git-diff>`,
+:gitdoc:`git-show <git-show>`
+
+
+Review changes in the whole repository.
 
 ::
 
@@ -9,7 +13,7 @@ Repository Info
     $ git log --summary
     $ git log --stat
 
--  To see the changes introduced by the last commit:
+Changes introduced by the last commit:
 
 ::
 
@@ -17,7 +21,7 @@ Repository Info
     $ git log -1 -p
     $ git diff HEAD^!
 
--  To see the changes introduced by some commit
+Changes introduced by some commit:
 
 ::
 
@@ -26,8 +30,9 @@ Repository Info
     $ git show 20b0f6e1961d5da
     $ git diff 20b0f6e1961d5da^!
 
--  to review changes on some file/directory ``-- follow`` follow among
-   file renames
+Changes on some file/directory
+
+-    ``-- follow`` follow among file renames
 
 ::
 
@@ -35,13 +40,13 @@ Repository Info
     $ gitk -- Muttrc
     $ gitk --all -- Muttrc
 
--  view source commit tree with
+View source commit tree:
 
 ::
 
     $ gitview --branches --remotes
 
--  diff and index
+Diff and index:
 
 ::
 
@@ -52,14 +57,14 @@ Repository Info
     # Changes in the working tree since your last commit; what you would be committing if you run "git commit -a"
     $ git diff HEAD
 
--  to show the blog sha associated with a file in the index
+Show the blog sha associated with a file in the index:
 
 ::
 
     $ git ls-files --stage <path>
 
 
-
+-
     Local Variables:
     rst-indent-width: 4
     rst-indent-field: 4
