@@ -16,6 +16,7 @@ Contents:
    remote.rst
    error_fix.rst
    deploy.rst
+   git_archive.rst
    misc.rst
 
 Indices and tables
