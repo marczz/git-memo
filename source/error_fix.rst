@@ -126,28 +126,28 @@ the conflict, then you just need to::
     git rebase --continue
     git stash pop
 
-I have made a small error in the file SmtplibExample.py, and corrected
-it, I don't want to make a new commit for this tiny fix, but make it
-part of my previous commit.
+You have made a small error in the file SmtplibExample.py, and corrected
+it, You don't want to make a new commit for this tiny fix, but make it
+part of your previous commit.
 
-I stash my current work
+You stash your current work
 
 ::
 
     $ git stash --quiet
 
-I look at the last commit for the file
+You look at the last commit for the file
 
 ::
 
     $ git log -n 1 --pretty=oneline --abbrev-commit  TD/Smtp/SmtplibExample.py
     9c091e6 SmtplibExample.py: refactored to a function and a main.
 
-I rebase from the previous commit::
+You rebase from the previous commit::
 
   $ git rebase --interactive 9c091e6^
 
-I get the rebase list to edit::
+You get the rebase list to edit::
 
   pick 9c091e6 SmtplibExample.py: refactored to a function and a main.
   pick 3d3f53e SmtplibExample2.py: 2to3, switched to argparse, minor fixes
@@ -155,7 +155,7 @@ I get the rebase list to edit::
   pick aa34250 index.mdn: added sockets
   ....
 
-I change the first *pick* to *edit* valid it, then rebase pause at::
+You change the first *pick* to *edit* valid it, then rebase pause at::
 
   Stopped at 9c091e6... SmtplibExample.py: refactored to a function and a main.
   You can amend the commit now, with
@@ -163,11 +163,17 @@ I change the first *pick* to *edit* valid it, then rebase pause at::
   Once you are satisfied with your changes, run
   git rebase --continue
 
-I checkout my amended file from the stash::
+You checkout your amended file from the stash::
 
     git checkout stash@{0} -- : TD/Smtp/SmtplibExample.py
 
-I continue the rebase::
+You add it and amend the commit::
+
+    git add TD/Smtp/SmtplibExample.py
+    git commit --amend
+
+
+You continue the rebase::
 
   [detached HEAD eae8d29] SmtplibExample.py: refactored to a function and a main.
   1 files changed, 22 insertions(+), 14 deletions(-)
