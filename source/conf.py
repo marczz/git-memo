@@ -253,4 +253,4 @@ extlinks = {'github': ('http://help.github.com/%s', 'github: ')}
 if local_ref:
     extlinks['gitdoc'] = ('http://localhost/doc/git-doc/%s.html', 'git doc: ')
 else:
-    extlinks['gitdoc'] = ('http://git-scm.com/docs/%s', 'git doc: ')
+    extlinks['gitdoc'] = ('https://www.kernel.org/pub/software/scm/git/docs/%s', 'git doc: ')
