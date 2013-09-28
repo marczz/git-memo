@@ -179,6 +179,9 @@ You continue the rebase::
   1 files changed, 22 insertions(+), 14 deletions(-)
   Successfully rebased and updated refs/heads/master.
 
+See also the `Interactive rebase help at github
+<https://help.github.com/articles/interactive-rebase>`_
+
 Checking your rebase and undoing it
 -----------------------------------
 
