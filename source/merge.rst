@@ -8,11 +8,8 @@ Merge and Patch
 Merging
 -------
 
--  In a failed merge an unmerged path `file` contains the combined
-   unmerged file, and `git diff` will show a *combined diff* which show
-   differences with the two parents.
 
-   The two parents and their common  base form the three stages of the
+-  The two parents and their common  base form the three stages of the
    merge:
 
    -  ``git show :1:file`` is the ``base`` we have the difference as
@@ -21,6 +18,25 @@ Merging
       ``git diff -2`` or ``git diff --ours``
    -  ``git show :3:file`` is ``theirs`` we have the difference as
       ``git diff -3`` or ``git diff --theirs``
+
+-  In a failed merge an unmerged path `file` contains the combined
+   unmerged file, and `git diff` will show a *combined diff* which show
+   differences with the two parents.
+
+-  ``git log --merge -p <path>`` will show diffs first for the HEAD
+   version and then the MERGE_HEAD version.
+
+-  ``git log ..otherbranch`` show the changes that will be merged
+   in the current branch.
+-  ``git diff ...otherbranch`` is the diff from common ancestor (merge
+   base) to graphical representation of the branches since they were merged last time.
+
+-   ``git mergetool`` launch a graphical mergetool which will work you through the merge.
+
+
+Refs:
+
+-   :gitdoc:`git-merge.html`
 
 Submitting patches
 ------------------
