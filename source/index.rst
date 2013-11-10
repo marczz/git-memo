@@ -15,9 +15,13 @@ Contents:
    merge.rst
    remote.rst
    error_fix.rst
+   filter-branch.rst
+   repository_backup.rst
    deploy.rst
    git_archive.rst
+   hooks.rst
    misc.rst
+
 
 Indices and tables
 ==================
