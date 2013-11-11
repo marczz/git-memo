@@ -15,6 +15,8 @@ repo.
 
 But such a frozen copy can not be updated.
 
+.. _git-bundle:
+
 git bundle
 ----------
 
@@ -24,22 +26,36 @@ source. You can  fetch, pull clone from it.
 
 ::
 
-    git bundle create /path/to/mybundle master branch2 branch3
+    $ git bundle create /path/to/mybundle master branch2 branch3
 
 or to get all refs
 
 ::
 
-   git bundle create /path/to/mybundle --all
+   $ git bundle create /path/to/mybundle --all
 
 You can then check what is in your bundle::
 
-    git bundle list-heads /path/to/mybundle
+    $ git bundle list-heads /path/to/mybundle
 
 After moving the bundle on any location you can get a new repository
 by::
 
-    git clone -b master /path/to/mybundle newrepo
+    $ git clone -b master /path/to/mybundle newrepo
+
+If you want to continue your development in the first repository
+you can do as follow::
+
+    $ git tag lastsent master
+    #.... do some commits
+    $ git bundle create /path/to/newcommitbundle lastsent..master
+
+Then send it by email or any dumb transport, and in the repository
+on the other side::
+
+    $ git bundle verify /path/to/newcommitbundle
+    $ git pull /path/to/newcommitbundle master
+
 
 
 More details in :gitdoc:`git-bundle(1) Manual Page <git-bundle.html>`
@@ -47,6 +63,8 @@ and `Git's Little Bundle of Joy <http://git-scm.com/2010/03/10/bundles.html>`_
 
 A discussion is in `Stackoverflow: Backup a Local Git Repository
 <http://stackoverflow.com/questions/2129214/backup-a-local-git-repository>`_
+
+.. _gcrypt-remote:
 
 gcrypt remote
 -------------
