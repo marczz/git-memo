@@ -199,3 +199,39 @@ Junio Hamano in the article:
 <http://article.gmane.org/gmane.comp.version-control.git/113221>`_
 or look at the `article thread
 <http://thread.gmane.org/gmane.comp.version-control.git/113124/focus=113221>`_.
+
+Using git-wip
+-------------
+
+
+To show the log of the commits in wip/master and not in master::
+
+    git log master..wip/master
+
+You can add ``p`` to see what is added::
+
+    git log -p master..wip/master
+
+Here as usual for a git revision range ``master..wip/master``
+means all the commit in ``wip/master`` which are not in ``master``.
+
+
+To see the what is in wip and not committed to master you do::
+
+    git diff master...wip/master
+
+This shows the diff between the common ancestor of master and
+wip/master and master.
+
+::
+
+    git diff master..wip/master
+
+is the same than
+
+    git diff master wip/master
+
+And represent the difference beetween master and wip/master, this is
+probably **not what you want** because if you have committed something
+since the last *wip*, master is not an ancestor of wip/master, so this
+diff will also undo whatever is committed since the common ancestor.
