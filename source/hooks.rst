@@ -6,9 +6,27 @@ refs: :gitdoc:`githooks <githooks.html>`, :progit:`Git Hooks`
 
 
 prepare_commit_msg
-------------------
+------------------*
 
-:gitdoc:`gitdoc: prepare_commit_msg<githooks.html#_prepare_commit_msg>`
+Ref: :gitdoc:`gitdoc:
+prepare_commit_msg<githooks.html#_prepare_commit_msg>`
+
+This hook is invoked by git commit  after preparing the default
+message, and before the editor is started. It takes one to three
+parameters.
+
+-   The name of the file that contains the prepared message.
+-   The second is ``message`` if a ``-m`` or ``-F`` option was given,
+    ``template`` with a ``-t`` option or configuration
+    ``commit.template``, ``commit``
+    if a ``-c``, ``-C`` or ``--amend`` option was given,
+    ``merge`` for a merge commit or with a ``.git/MERGE_MSG`` file;
+    and ``squash`` if a ``.git/SQUASH_MSG`` file exists.
+-   The third is only for a ``commit`` and is the commit SHA-1.
+
+A non-zero exit means a failure of the hook and aborts the commit.
+
+
 
 .. code:: bash
 
