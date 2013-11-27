@@ -1,3 +1,5 @@
+..  _filter_branch:
+
 Filter branch
 =============
 
