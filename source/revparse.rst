@@ -3,11 +3,11 @@
 Naming commits
 ==============
 
-See :gitdoc:`git-rev-parse <git-rev-parse>`,
-:gitdoc:`gitrevisions <gitrevisions>`,
-:gitdoc:`git-name-rev <git-name-rev>`,
-:gitdoc:`git-describe <git-describe>`,
-:gitdoc:`git-reflog <git-reflog>`
+See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
+:gitdoc:`gitrevisions <gitrevisions.html>`,
+:gitdoc:`git-name-rev <git-name-rev.html>`,
+:gitdoc:`git-describe <git-describe.html>`,
+:gitdoc:`git-reflog <git-reflog.html>`
 
 -   To inspect your repository (and in scripts)
 

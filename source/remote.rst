@@ -70,7 +70,7 @@ References
 ----------
 
 -   :github:`remotes`
--   :gitdoc:`git-remote`
+-   :gitdoc:`git-remote.html`
 -   `Setting up a new remote git repository
     <http://toolmantim.com/articles/setting_up_a_new_remote_git_repository>`_
 

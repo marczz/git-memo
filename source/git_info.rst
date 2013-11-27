@@ -1,8 +1,8 @@
 Repository Info
 ===============
 
-Refs: :gitdoc:`git-log <git-log>` :gitdoc:`git-diff <git-diff>`,
-:gitdoc:`git-show <git-show>`
+Refs: :gitdoc:`git-log <git-log.html>` :gitdoc:`git-diff <git-diff.html>`,
+:gitdoc:`git-show <git-show.html>`
 
 
 Review changes in the whole repository.
