@@ -27,11 +27,17 @@ Contents:
    remote.rst
    error_fix.rst
    filter-branch.rst
+   subtree.rst
    repository_backup.rst
    deploy.rst
    git_archive.rst
    hooks.rst
+   garbage_collecting.rst
    misc.rst
+
+
+
+.. _by-nc-sa: http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
 
 
 Indices and tables
