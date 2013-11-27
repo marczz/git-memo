@@ -4,6 +4,17 @@
 ==========
  Git Memo
 ==========
+.. sidebar:: License
+
+   .. figure:: http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png
+      :target: http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
+      :alt: Creative Commons License
+
+      ..
+
+      | Git Memo by Marc Zonzon is licensed under a
+      | `Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <by-nc-sa_>`_
+
 
 Contents:
 
