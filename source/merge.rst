@@ -69,16 +69,16 @@ You can fix conflicts, add the fixed files to the index and commit with::
 
 
 Refs:
--   `Applying / Merging Changes From One Git Repository To Another
-<http://factore.ca/on-the-floor/51-applying-merging-changes-from-one-git-repository-to-another>`_
--   `git – applying patches
-<http://www.winksaville.com/blog/linux/git-applying-patches/>`_
--   `Pro Git: Maintaining a Project
-<http://progit.org/book/ch5-3.html>`_
--   `gitready: pick out individual commits
-<http://gitready.com/intermediate/2009/03/04/pick-out-individual-commits.html>`_
-compare ``git cherry-pick``, ``git format-patch`` with ``git am``, or with ``git apply``,
-and ``git merge``.
+  -   `Applying / Merging Changes From One Git Repository To Another
+      <http://factore.ca/on-the-floor/51-applying-merging-changes-from-one-git-repository-to-another>`_
+  -   `git – applying patches
+      <http://www.winksaville.com/blog/linux/git-applying-patches/>`_
+  -   `Pro Git: Maintaining a Project
+      <http://progit.org/book/ch5-3.html>`_
+  -   `gitready: pick out individual commits
+      <http://gitready.com/intermediate/2009/03/04/pick-out-individual-commits.html>`_
+      compare ``git cherry-pick``, ``git format-patch`` with ``git
+      am``, or with ``git apply``, and ``git merge``.
 
 Subtree-merge
 -------------
@@ -117,9 +117,3 @@ and used in this `Git Subtree Workflow
 by David S Anderson and in `Git Subtree Merge –The Quick Version
 <http://www.codeproject.com/Articles/562950/GitplusSubtreeplusMergeplus-e2-80-93TheplusQuickpl>`_
 by  John Atten.
-
-..
-
-   Local Variables:
-   ispell-local-dictionary: "english"
-   End:
