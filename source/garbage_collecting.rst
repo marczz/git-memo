@@ -1,13 +1,20 @@
 Garbage Collecting
 ==================
 
-Refs: :gitdoc:`git-gc(1) <git-gc.html>`, :gitdoc:`git-fsck(1)
-<git-fsck.html>` :gitdoc:`git-prune(1) <git-prune.html>`,
-:gitdoc:`git-pack-refs(1) <git-pack-refs.htm>`,
-:gitdoc:`git-repack(1) <git-repack.html>`,
-:gitdoc:`git-prune-packed(1) <git-prune-packed.html>`,
-:gitdoc:`git-reflog(1) <git-reflog.html>`.
+Refs:
+  :gitdoc:`git-gc(1) <git-gc.html>`, :gitdoc:`git-fsck(1)
+  <git-fsck.html>` :gitdoc:`git-prune(1) <git-prune.html>`,
+  :gitdoc:`git-pack-refs(1) <git-pack-refs.htm>`,
+  :gitdoc:`git-repack(1) <git-repack.html>`,
+  :gitdoc:`git-prune-packed(1) <git-prune-packed.html>`,
+  :gitdoc:`git-reflog(1) <git-reflog.html>`.
 
+  :progit:`Maintenance and Data Recovery
+  <Git-Internals-Maintenance-and-Data-Recovery>`
+  has some examples of repository cleaning.
+
+Automated garbage collection with ``gc --auto``.
+------------------------------------------------
 
 In a repository, some object become unreachable by any refs, during
 some operations, like deleting a branch, deleting an unreachable tag,
@@ -32,7 +39,7 @@ greater than ``gc.autopacklimit``  (default 50, 0 disable it)
 When doing a ``git gc --aggressive`` the efficiency of :gitdoc:`git-repack <git-repack.html>` depends
 of gc.aggressiveWindow (default 250).
 
-``git gc --auto``also pack refs when ``gc.packrefs`` is at its default
+``git gc --auto`` also pack refs when ``gc.packrefs`` has its default
 value of ``true``, the refs are then placed in a single file
 ``$GIT_DIR/packed-refs``, each modification of a ref again create a
 new ref in ``GIT_DIR/refs`` hierarchy that override the corresponding
@@ -53,6 +60,8 @@ Records of conflicted merge are also kept ``gc.rerereresolved``
 (default 60 days) or ``gc.rerereunresolved`` (default 15 days) for
 unresolved merges.
 
+Forced garbage collection.
+--------------------------
 
 You can have an idea of the state of your repository by issuing
 ``git count-objects -vH``
