@@ -1,7 +1,12 @@
+..  _garbage_collection:
+
 Garbage Collecting
 ==================
 
 Refs:
+  :gitdoc:`Git user manual: dangling-objects
+  <user-manual.html#dangling-objects>`
+
   :gitdoc:`git-gc(1) <git-gc.html>`, :gitdoc:`git-fsck(1)
   <git-fsck.html>` :gitdoc:`git-prune(1) <git-prune.html>`,
   :gitdoc:`git-pack-refs(1) <git-pack-refs.htm>`,
@@ -13,15 +18,54 @@ Refs:
   <Git-Internals-Maintenance-and-Data-Recovery>`
   has some examples of repository cleaning.
 
-Automated garbage collection with ``gc --auto``.
-------------------------------------------------
-
 In a repository, some object become unreachable by any refs, during
 some operations, like deleting a branch, deleting an unreachable tag,
 rebasing, expiring entries in the
 :gitdoc:`reflog <git-reflog.html>` ...
 These unreachable objects can be reported by :gitdoc:`git-fsck
 <git-fsck.html>`.
+
+.. index: git fsck
+
+git fsck
+--------
+
+If you use the default options::
+
+  $ git fsck
+  dangling tree 4df800e6a1c6ba57821e4e20680566492bbb5e81
+
+report only the dangling objects.
+
+You can add the object unreachable by any reference with::
+
+  $ git fsck --unreachable
+  unreachable tree 6e946512b1b4841dff713bb65e78a8ddbf0171d3
+  unreachable tree 4df800e6a1c6ba57821e4e20680566492bbb5e81
+  unreachable tree 125a284a7a428d91e199a3c9d7f7a834613d1d13
+
+Both commands above use also the reflog. If you want to look at the
+object which are dangling except from the reflog or object unreachable
+except the reflog you do::
+
+  $ git fsck --dangling --no-reflogs
+  dangling commit 2b21a6a8e775a43eafbe1b9e8b1fb5debe77b2ee
+  dangling commit c3e1ecc9f0e7a67c9a05db92d6c6548a1c965830
+  dangling commit 1702677e8ca31c0536745b36280397457bf20002
+  dangling commit b746f71fa14416e22920f38b8439bbb1972481a3
+  dangling commit 408c05cafd2bfdb861676dd54a0ed083f7fdfcaa
+  dangling commit 6c92fe1d7f47e397c3ccd2713ddd9c3b8239d1c8
+  ...
+  $ git fsck --unreachable --no-reflogs
+  unreachable commit 2b21a6a8e775a43eafbe1b9e8b1fb5debe77b2ee
+  unreachable tree 39610cc0e1126a2bb73cb3345b9228f1ccb374d9
+  unreachable commit c3e1ecc9f0e7a67c9a05db92d6c6548a1c965830
+  unreachable tree e981cec3e50cf10b59b544d86be681a7030cb0a6
+  ...
+
+
+Automated garbage collection with ``gc --auto``.
+------------------------------------------------
 
 Git stores the objects either one by one as *loose* objects, or with a
 very efficient method in *packs*. But if the size of packs is a lot
@@ -45,12 +89,17 @@ value of ``true``, the refs are then placed in a single file
 new ref in ``GIT_DIR/refs`` hierarchy that override the corresponding
 packed ref.
 
-The ``gc`` command also clean unreachable loose objects that are older
-than ``gc.pruneExpire`` (default 14 days).
+The ``gc`` command also run by default with the ``--prune`` option,
+which clean unreachable loose objects that are older than
+``gc.pruneExpire`` (default 14 days). If you want to use an other date
+you have to add ``--prune=<date>``, ``--prune=all`` prunes loose
+objects regardless of their age. *Note that it may not be what you want
+on a shared repository, where an other operation could be run
+concurrently.*
 
 An unreachable commit is never pruned as long it is in a
 :gitdoc:`reflog(1) <git-reflog.html>`, but
-``gc --auto`` run ``git reflog expire`` to prune entries that are
+``gc --auto`` run ``git reflog expire`` to prune reflog entries that are
 older than ``gc.reflogExpire`` (default 90 days) or unreachable
 entries older than ``gc.reflogExpireUnreachable`` (default 30 days).
 These values can be also configured for each individual ref see
