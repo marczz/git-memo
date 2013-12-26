@@ -26,7 +26,11 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.extlinks']
+extensions = ['sphinx.ext.intersphinx', 'sphinx.ext.todo',
+              'sphinx.ext.extlinks',  'sphinx.ext.graphviz']
+
+# graphviz_dot_args = ["-N fontsize=9"]
+graphviz_output_format = "svg"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -88,7 +92,7 @@ exclude_patterns = []
 pygments_style = 'sphinx'
 
 # Default highlight language, changed by highlight directive
-highlight_language = 'bash'
+highlight_language = 'shell-session'
 
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
