@@ -33,6 +33,16 @@ Merging
 
 -   ``git mergetool`` launch a graphical mergetool which will work you through the merge.
 
+Keeping one branch
+~~~~~~~~~~~~~~~~~~
+
+If in your repo you have a conflict in a file, but want to adopt either *ours*
+or *theirs* version of the file, you don't need to manually edit the
+merge, you can checkout the chosen file::
+
+  git checkout --theirs <file>
+  git add <file>
+
 
 Refs:
 
