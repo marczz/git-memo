@@ -6,6 +6,7 @@ Fixing errors
 
 Amend a commit
 --------------
+..  index:: git;commit --amend
 
 To amend the **last** commit::
 
@@ -60,20 +61,45 @@ worktree or work in a linked temporary working directory::
 You can also use ``git rebase --interactive`` as indicated
 :ref:`bellow <rebase_interactive>`.
 
+..  include a section on git rebase:
+    ref: https://www.kernel.org/pub/software/scm/git/docs/git-rebase.html
+    An example page is http://git-scm.com/book/en/Git-Branching-Rebasing
+
+..  _split_commit:
+
+..  index:: git; gui
 
 splitting a commit
 ------------------
 
-ref: :gitdoc:`git-rebase: SPLITTING COMMITS <git-rebase.html#_splitting_commits>`
+ref: :gitdoc:`git-rebase: SPLITTING COMMITS
+<git-rebase.html#_splitting_commits>`,
+:gitdoc:`git gui <git-gui.html>`
 
+To split a commit, you first rebase interactively to the commit or one
+of its ancestor
 ::
 
-    $ git rebase -i <commit>^
-    $ # Mark the commit with the action "edit"
-    $ # When it comes to editing:
+    $ git rebase -i <commit>
+
+Then you mark the commit with the action *edit*, and when it comes to
+editing::
+
     $ git reset HEAD^
-    $ git-gui
-    $ # commit the appropriate entries
+
+Then you can examine the status with::
+
+  $ git status
+
+and add some files and stage the appropriate hunks. It can be easy to
+use::
+
+  $ git gui
+
+to commit the appropriate hunks in individual commits
+
+Then you can as usual do::
+
     $ git rebase --continue.
 
 
@@ -81,6 +107,8 @@ ref: :gitdoc:`git-rebase: SPLITTING COMMITS <git-rebase.html#_splitting_commits>
 
 Reorder or merge patches
 ------------------------
+
+..  index:: git; rebase
 
 Use :gitdoc:`git-rebase interactive mode <git-rebase.html#_interactive_mode>`
 
@@ -106,13 +134,46 @@ Use :gitdoc:`git-rebase interactive mode <git-rebase.html#_interactive_mode>`
     #              and edit the sum of commit messages
     # If you remove a line here THAT COMMIT WILL BE LOST.
 
-You can also reorder commits, *reorder* + *squash* + *delete* is a very powerfull
-tool to correct a suite of patches. For each edit or conflict rebase
+    The option are:
+
+**delete**:
+    if you delete the commit line, it will be omitted from
+    the *rebase*.
+**reorder**:
+    You can change the orders of the commit *pick* lines, they will be
+    processed in the new order.
+**pick**, or **reword** (shortcuts ``c`` and ``r``):
+    Include the commit silently, *reword* is similar to *pick*, but
+    *rebase* will open the commit message in an editor to allow you to
+    fix it.
+**edit** (shortcut ``e``):
+    For each *edit* the commit is applied, then the *rebase* pause to
+    allow you to use ``git commit --amend`` to change the commit
+    message, or change the commit, or :ref:`split it in many
+    smaller commits <split_commit>`.
+**squash** and **fixup** (shortcuts ``s`` and ``f``):
+    *squash* merge the commit in the previous one, then the *rebase*
+    pause to let you edit the merged commits. If you instead use
+    *fixup*, the second commit message is discarded and the first one
+    is used.
+**exec** (shortcut ``x``):
+    *exec* command launches the command in a shell spawn from the root
+    of the working tree. The rebase will continue if the shell exit
+    with a 0 status, and pause when the command fail, to let you fix
+    teh error and ``git rebase --continue`` or ``git rebase --abort``.
+
+*reorder* + *squash* + *delete* is a very powerful
+tool to correct a suite of patches.
+
+For each *edit*, *squash*, failed *exec* or conflict *rebase*
 will stop until you edit or merge comments (in case of a squash), or fix
 the conflict, then you just need to::
 
-    $ git rebase --continue
-    $ #or git rebase --abort
+  $ git rebase --continue
+
+or::
+
+  $ git rebase --abort
 
 ..  A developper
     git stash
@@ -125,6 +186,9 @@ the conflict, then you just need to::
     git checkout stash@{0} -- test_valide.py
     git rebase --continue
     git stash pop
+
+*Rebase* example
+~~~~~~~~~~~~~~~~
 
 You have made a small error in the file SmtplibExample.py, and corrected
 it, You don't want to make a new commit for this tiny fix, but make it
@@ -185,6 +249,10 @@ See also the `Interactive rebase help at github
 Checking your rebase and undoing it
 -----------------------------------
 
+..  index:: ORIG_HEAD
+    single: git;diff
+    gitk, tig
+
 The rebase can be a dangerous operation, sometime I lost a file by
 deleting a commit that add a file within an interactive rebase. The
 head *before* a rebase is stored in ORIG_HEAD. All dangerous
@@ -205,6 +273,7 @@ To see what commits are in HEAD and not in ORIG_HEAD::
 
   git log ORIG_HEAD..HEAD
 
+  ..  index:: gitk
 
 You can also use visualization tools like *tig* ou *gitk*::
 
@@ -231,6 +300,9 @@ If you have lost your ORIG_HEAD after a rebase because you did an other operatio
 that reset it, you can still find the previous head which is now a
 dangling ref, unless you have garbage collected it.
 
+..  index:: reflog
+            git; reflog
+
 You need to inspect your reflog and find the first commit before the
 rebase, in an interactive rebase the process begin with a checkout of
 the commit on which you rebase, so the previous commit was the head
@@ -246,12 +318,14 @@ before the rebase::
 In this example the previous head was the ninth older commit HEAD\@{9} with an
 abbreviated commit c819a90.
 
+..  index:: dangling objects
 
 dangling objects
 ----------------
 
-see :gitdoc:`Git user manual: dangling-objects
-<user-manual.html#dangling-objects>`
+
+The main section is the :ref:`garbage collection section
+<garbage_collection>`
 
 After rebasing the old
 branch head is no longer in a branch and so it is dangling, it will be
@@ -271,13 +345,3 @@ be lost some next garbage collection away we can point a new branch at
 it::
 
   $ git branch <recovery-branch> <dangling-commit-sha>
-
-..  local variables
-
-    Local Variables:
-    rst-indent-width: 4
-    rst-indent-field: 4
-    rst-indent-literal-normal: 4
-    rst-indent-comment: 4
-    ispell-local-dictionary: "english"
-    End:
