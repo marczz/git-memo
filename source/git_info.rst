@@ -79,6 +79,8 @@ Review changes in the whole repository.
     $ git log --stat
     $ git log --follow #To follow among file renames
 
+.. index:: gitk
+
 Changes on some file/directory
 
 ::
@@ -179,7 +181,7 @@ Patch to apply to *master* to obtain *test*::
 ..  index::
         gitk
         tig
-        single; git log
+        single: git;log
 
 commit tree
 -----------

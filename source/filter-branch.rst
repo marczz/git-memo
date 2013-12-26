@@ -45,8 +45,8 @@ References
     <http://git-scm.com/book/ch9-7.html#Removing-Objects>`_.
 
 
-Removing an object
-------------------
+Removing an object or a directory
+---------------------------------
 
 This can be done with ``--tree-filter`` or ``-index-filter`` as the
 second one does not check out the tree, it is a lot quicker.
@@ -60,12 +60,33 @@ incompatible with ``--commit-filter``.
 
 Your command will be::
 
-  git filter-branch --prune-empty --index-filter  'git rm --cached --ignore-unmatch badfile' HEAD
+  git filter-branch --prune-empty --index-filter  \
+      'git rm --cached --ignore-unmatch badfile' HEAD
 
 Here the ``git rm`` command has the option ``--cached`` since we are
 working on the index and ``--ignore-unmatch`` because the file can be
 absent in the index for some commits, like those anterior to the first
 occurrence of the file.
+
+If you rather want to delete a full directory content, you will add
+the ``-r`` option to make the remove recursive.::
+
+  git filter-branch --prune-empty --index-filter  \
+      'git rm -r --cached --ignore-unmatch baddir' HEAD
+
+If your object or directory is in many branch, cleaning HEAD will not
+get read of it, you should in this case clean all refs and filter all
+tags with::
+
+  git filter-branch --prune-empty --index-filter  \
+      'git rm  --cached --ignore-unmatch badfile' \
+      -tag-name-filter cat -- --all
+
+If your unwanted blob has changed name along the history, it will
+still be kept with the olders name, but if you take care to find them
+with::
+
+  git log --name-only --follow --all -- badfile
 
 After that your history no longer contains a reference to ``badfile``
 but all the ``refs/original/branch`` and the reflog still do. You have
@@ -77,8 +98,14 @@ It is quick since done with hardlinks and the clone will not have the
 removed objects.
 
 If you have yet done a backup as proposed :ref:`above <backup>`
-you can clean  before repacking, first the original refs::
-
+you can clean  before repacking.
+After a filter-branch git keep *original* refs, that prevent the
+previously referenced object to become loose and be cleaned by garbage
+collection. If you want to get rid of them you delete these refs, on
+the other side if you want to keep them longer, you better rename them
+to prevent them to be overrode by some next operation (even if  you can
+also control the original namespace with ``--original`` option).
+::
 
     git for-each-ref --format='%(refname)' refs/original | \
         xargs -n 1 git update-ref -d
@@ -91,3 +118,14 @@ Then your logs::
 And you garbage collect all unreferenced objects with::
 
   git gc --prune=now
+
+*More details in the section* :ref:`garbage collection <garbage_collection>`.
+
+*Note:  Many collaborative hosted repositories like GitHub,
+BitBucket and others, will not let you push back your deletes, so if
+you really want to be sure nobody can get your old file, you will have
+to delete these repos an push new ones.*
+
+.. other refs
+
+    http://stackoverflow.com/questions/359424/detach-subdirectory-into-separate-git-repository
