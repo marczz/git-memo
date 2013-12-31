@@ -233,8 +233,11 @@ Refs:  :gitdoc:`git-grep(1) <git-grep.html>`
 
 ::
 
-    $ git grep "foo()"          # search working directory for "foo()"
-    $ git grep v2.6.15 "foo()"  # search old tree for "foo()"
+    $ git grep "foo()"                   # search working directory for "foo()"
+    $ git grep 'defun.*init *(.*)'       # search working directory for pattern
+    $ git grep -E 'defun.*init *\(.*\)'  # use extended regexp (default basic)
+    $ git grep "foo()" v2.6.15           # search old tree for "foo()"
+    $ git grep init 6874caeedb3c -- *.el # search "init" in  .el files at some commit
 
 
 ..  index::
