@@ -139,6 +139,7 @@ the commit with ``^!`` to mean the commit and nothing in the ancestors
 ..  index::
         gitrevisions
         !single: git;diff
+        !single: git;difftool
         single: git;format-patch
 
 git diff
@@ -148,6 +149,7 @@ git diff
 
 Refs:
     :gitdoc:`git-diff(1) <git-diff.html>`,
+    :gitdoc:`git-difftool(1) <git-difftool.html>`,
     :gitdoc:`gitrevisions(7) <gitrevisions.html>`,
     :gitdoc:`git-format-patch(1) <git-format-patch.html>`.
 
@@ -168,8 +170,24 @@ diffs between  two branches::
 
     $ git diff master..test
 
-diff between the common ancestor of *master* and *test* and the tip of
-*test*. The semantic of the triple dot is different with ``git log``::
+You can also use a *difftool*, if you want to see the diff with
+*meld*::
+
+    $ git difftool --tool=meld  master..test
+
+
+To know the list of available tools::
+
+    $ git difftool --tool-help
+
+To define a new tool you set in your ``.gitconfig``::
+
+    [difftool "ediff"]
+        cmd = emacs --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"
+
+You use a triple dot to get the diff between the common ancestor of
+*master* and *test* and the tip of *test*. *Warning: The semantic of the triple
+dot is different with* ``git log``::
 
     $ git diff master...test
 
