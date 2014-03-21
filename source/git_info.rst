@@ -77,7 +77,8 @@ Review changes in the whole repository.
     $ git log --name-status
     $ git log --summary
     $ git log --stat
-    $ git log --follow #To follow among file renames
+    $ git log --patch # abbrev -p
+
 
 .. index:: gitk
 
@@ -88,8 +89,17 @@ Changes on some file/directory
     $ git log  --stat   -- Muttrc
     $ gitk -- Muttrc
     $ gitk --all -- Muttrc
-    $ git log -S'foo()' # commits which add or remove any file data
-                        # matching the string 'foo()'
+
+All the commits which add or remove any file data
+matching the string ``'foo()'``::
+
+
+    $ git log -S'foo()'
+
+To follow among renames, even crossing directories, use for a single
+file::
+
+    $ git log -p --follow Muttrc
 
 
 Changes in a commit range::
@@ -201,7 +211,7 @@ Patch to apply to *master* to obtain *test*::
         tig
         single: git;log
 
-commit tree
+Commit tree
 -----------
 
 Refs:
@@ -264,3 +274,46 @@ Show the blog sha associated with a file in the index:
 ::
 
     $ git ls-files --stage <path>
+
+
+Finding the top level directory
+-------------------------------
+
+Ref: :gitdoc:`git-rev-parse(1) <git-rev-parse.html>`
+
+To show the absolute path of the top-level directory.:
+::
+
+    $git rev-parse --show-toplevel
+
+To show the *relative* path of the top-level repository::
+
+    $git rev-parse --show-cdup
+
+or to show the path of the current directory relative to the
+top-level::
+
+    $git rev-parse --show-prefix
+
+I use it to have a default message showing paths relative to top-level
+with::
+
+    $git commit :/$(git rev-parse --show-prefix)<relative-name>
+
+
+To show the git directory:
+::
+
+    $git rev-parse --git-dir
+
+If ``$GIT_DIR`` is defined it is  returned otherwise when we are in
+Git directory return the ``.git`` directory, if not exit with nonzero
+status after printing an error message.
+
+To know if you are in a work-tree::
+
+    $git rev-parse --is-inside-work-tree
+
+Note also that an alias expansion  prefixed with an exclamation point
+will be executed from the top-level directory of a repository
+i.e. from ``git rev-parse --show-toplevel``.
