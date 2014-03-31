@@ -15,6 +15,8 @@ Contents:
    revparse.rst
    merge.rst
    remote.rst
+   remoteTracking.rst
+   rebase.rst
    error_fix.rst
    filter-branch.rst
    subtree.rst
