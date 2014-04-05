@@ -8,24 +8,24 @@
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   introduction.rst
-   git_info.rst
-   revparse.rst
-   merge.rst
-   remote.rst
-   remoteTracking.rst
-   rebase.rst
-   error_fix.rst
-   filter-branch.rst
-   subtree.rst
-   repository_backup.rst
-   deploy.rst
-   git_archive.rst
-   hooks.rst
-   garbage_collecting.rst
-   misc.rst
+    introduction.rst
+    git_info.rst
+    revparse.rst
+    merge.rst
+    remote.rst
+    remote-tracking.rst
+    rebase.rst
+    error_fix.rst
+    filter-branch.rst
+    subtree.rst
+    repository_backup.rst
+    deploy.rst
+    git_archive.rst
+    hooks.rst
+    garbage_collecting.rst
+    misc.rst
 
 
 
