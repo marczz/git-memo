@@ -8,4 +8,5 @@
   (rst-indent-comment . 4)
   (ispell-local-dictionary . "english")
   (eval magit-wip-save-mode)
+  (eval orglink-mode)
 ))
