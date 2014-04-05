@@ -128,4 +128,4 @@ to delete these repos an push new ones.*
 
 .. other refs
 
-    http://stackoverflow.com/questions/359424/detach-subdirectory-into-separate-git-repository
+    [[http://stackoverflow.com/questions/359424/detach-subdirectory-into-separate-git-repository][stackoverflow - detach a subdirectory]]
