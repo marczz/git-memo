@@ -19,9 +19,9 @@ Extracting the branch
 
 First you split a new branch from your history containing only the
 subtree rooted at <prefix>. The new history includes only the commits
-(including merges) that affected <prefix>, and each of those commits
-now has the contents of <prefix> at the root of the project instead of
-in a subdirectory.
+(including merges) that affected <prefix>.
+The commit in which where previously rooted in the subdirectory
+<prefix> are now  at the root of the project.
 ::
 
     git subtree split -P <prefix>  -b <name-of-new-branch>
