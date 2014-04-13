@@ -314,6 +314,10 @@ Show the blog sha associated with a file in the index:
 
     $ git ls-files --stage <path>
 
+If you use plumbing commands, you can also show the blog sha that you
+obtain with :gitdoc:`git ls-tree <git-ls-tree.html>`  or given by a
+*git show* on a tree object. See the details in the
+:gitdoc:`git manual: Commit Object <user-manual.html#commit-object>`.
 
 Finding the top level directory
 -------------------------------
