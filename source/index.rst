@@ -13,6 +13,7 @@ Contents:
     introduction.rst
     git_info.rst
     revparse.rst
+    sharing.rst
     merge.rst
     remote.rst
     remote_tracking.rst
