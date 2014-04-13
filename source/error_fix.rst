@@ -62,11 +62,10 @@ worktree or work in a linked temporary working directory::
 
 
 You can also use ``git rebase --interactive`` as indicated
-:ref:`in the *rebase* section <rebase_interactive>`.
-
-You find there an
-ref:` example of fixing an old error with interactive rebase
-<interractive_rebase_example>`
+:ref:`in the rebase section <rebase_interactive>`.
+where you find an
+:ref:`example of fixing an old error with interactive rebase
+<interractive_rebase_example>`.
 
 ..  _split_commit:
 
