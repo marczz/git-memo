@@ -145,6 +145,45 @@ the commit with ``^!`` to mean the commit and nothing in the ancestors
     $ git diff 20b0f6e1961d5da^!
     $ git diff HEAD^!
 
+..  index::
+    !reflog
+    !single: git;reflog
+    single: git; log -g
+    single: git; show-branch -g
+
+Reflogs
+-------
+
+Refs:
+    :gitdoc:`git-reflog(1) <git-reflog.html>`,
+    :gitdoc:`git-log(1) <git-log.html>`,
+    :gitdoc:`git-show(1) <git-show.html>`,
+    :gitdoc:`user-manual: recovering lost changes
+    <user-manual.html#recovering-lost-changes>`,
+    `git-notes: reflog <http://gitolite.com/reflog.html>`_
+
+The reflog records each position of HEAD in the last 30 days (or
+configuration ``gc.reflogExpireUnreachable``).  The reflog history is
+local to your repository not shared, or cloned.
+
+To show the reflog use:
+::
+
+    $ git reflog show --date=relative
+    $ git log --walk-reflogs
+    $ git show-branch --reflog
+
+``--walk-reflogs`` and ``--reflog`` are abridged in ``-g``.
+If the rebase and amend don't appear in a simple log without ``-g``,
+when you use the reflog you can see and recover commits that have been
+amended or let away by a rebase.
+
+You can attain any past commit not yet pruned by:
+::
+
+    $ git log master@{1}
+    $ git show HEAD@{"1 week ago"}
+
 
 ..  index::
         gitrevisions
