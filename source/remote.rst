@@ -1,6 +1,7 @@
 ..  index:: !remote
-            git; remote
+            !git; remote
 
+..  _remote_repositories:
 Remote repositories
 ===================
 ..  index::
@@ -60,6 +61,7 @@ To fetch all remotes::
 
 ..  index:: config
 
+..  _remote_config:
 Remote configuration
 --------------------
 
