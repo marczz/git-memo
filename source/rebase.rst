@@ -3,7 +3,6 @@
 Rebase
 ======
 
-..  index:: git; rebase
 ..  index:: rebase
 
 Reference:  :gitdoc:`git-rebase(1) <git-rebase.html>`
@@ -74,9 +73,8 @@ Interactive Rebase
 ------------------
 
 ..  index:: rebase; interactive
-            git; rebase --interactive
 
-Reference: `git-rebase interactive mode <git-rebase.html#_interactive_mode>`
+Reference: :gitdoc:`git-rebase interactive mode <git-rebase.html#_interactive_mode>`
 
 The ``--interactive`` switch is used to reorder or merge patches.
 
@@ -131,7 +129,7 @@ The ``--interactive`` switch is used to reorder or merge patches.
     teh error and ``git rebase --continue`` or ``git rebase --abort``.
 
 *reorder* + *squash* + *delete* is a very powerful
-tool to correct a suite of patches.
+tool to clean a suite of patches.
 
 For each *edit*, *squash*, failed *exec* or conflict *rebase*
 will stop until you edit or merge comments (in case of a squash), or fix
@@ -220,7 +218,7 @@ Checking your rebase and undoing it
 -----------------------------------
 
 ..  index:: ORIG_HEAD
-    single: git;diff
+    single: diff
     gitk, tig
 
 The rebase can be a dangerous operation, sometime I lost a file by
@@ -271,7 +269,6 @@ that reset it, you can still find the previous head which is now a
 dangling ref, unless you have garbage collected it.
 
 ..  index:: reflog
-            git; reflog
 
 You need to inspect your reflog and find the first commit before the
 rebase, in an interactive rebase the process begin with a checkout of
