@@ -67,6 +67,41 @@ where you find an
 :ref:`example of fixing an old error with interactive rebase
 <interractive_rebase_example>`.
 
+..  index::
+    pair: commit; squash
+    pair: commit; fixup
+    pair: rebase; autosquash
+
+Commit a fixup and squash.
+--------------------------
+
+The :ref:`rebase --interactive <rebase_interactive>` \  can be made a lot
+simpler for fixing errors wit the ``git commit --fixup`` or
+``git commit --squash command``.
+
+On a clean worktree, or cleaned by a ``git stash``, you change your
+erroneous file(s) and commit it (them) with
+::
+
+    $ git commit --fixup=a0b1c2d3
+
+Where you give the erroneous commit number, then you *fixup* the error
+with:
+::
+
+    $ git rebase --interactive --autosquash a0b1c2d3^
+
+The first command just use the original message prefixed by
+``fixup!``, the second one squash the original and next commit
+discarding the message of the fixup commit.
+
+You can also do a simple commit and begin your message by ``fixup!``
+followed by an initial section of the original commit message.
+
+If instead of *fixup* you use *squash* the process is similar but the
+commit message for the folded commit is the concatenation of the
+messages of the first commit and of those with the *squash* command.
+
 ..  _split_commit:
 
 splitting a commit
