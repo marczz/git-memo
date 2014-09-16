@@ -18,24 +18,6 @@ import os
 # on_rtd is whether we are on readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
-# theme: one among 'default', 'bootstrap','cloud', 'sphinxtrap',
-# 'readability', 'sphinx_rtd_theme'
-# theme = 'sphinxtrap'
-# theme = 'default'
-if not on_rtd:
-    theme = 'sphinx_rtd_theme'
-
-if theme == 'cloud':
-    import cloud_sptheme
-elif theme == 'bootstrap':
-    import sphinx_bootstrap_theme
-elif theme == 'sphinxtrap':
-    import sphinxtrap
-elif theme == 'readability':
-    import readability
-elif theme == 'sphinx_rtd_theme':
-    import sphinx_rtd_theme
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -49,8 +31,9 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.intersphinx', 'sphinx.ext.todo',
-              'sphinx.ext.extlinks',  'sphinx.ext.graphviz']
+extensions = [
+    'sphinx.ext.intersphinx', 'sphinx.ext.todo',
+    'sphinx.ext.extlinks',  'sphinx.ext.graphviz']
 
 # graphviz_dot_args = ["-N fontsize=9"]
 graphviz_output_format = "svg"
@@ -137,7 +120,10 @@ highlight_language = 'shell-session'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 # html_theme = 'default'
-html_theme = theme
+# theme: one among 'default', 'sphinx_bootstrap_theme','cloud_sptheme', 'sphinxtrap',
+# 'readability', 'sphinx_rtd_theme'
+if not on_rtd:
+    html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -146,18 +132,8 @@ html_theme = theme
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
-if theme == 'cloud':
-    html_theme_path = [cloud_sptheme.get_theme_dir()]
-elif theme == 'bootstrap':
-    html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-elif theme == 'sphinxtrap':
-    html_theme_path = [sphinxtrap.get_theme_dir()]
-elif theme == 'readability':
-    readability_path = os.path.dirname(os.path.abspath(sphinxtheme.__file__))
-    relative_path = os.path.relpath(readability_path, os.path.abspath('.'))
-    html_theme_path = [relative_path]
-elif theme == 'sphinx_rtd_theme':
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+html_theme_path = sys.path
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -273,7 +249,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'gitmemo', 'Git Memo Documentation',
-     ['Marc Zonzon'], 1)
+    ['Marc Zonzon'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -304,10 +280,13 @@ texinfo_documents = [
 # Example configuration for intersphinx: refer to the Python standard library.
 #intersphinx_mapping = {'http://docs.python.org/': None}
 local_ref = False
-extlinks = {'github': ('http://help.github.com/%s', 'github: '),
-            'progit' : ('http://git-scm.com/book/en/%s', 'Pro Git: '),
-            }
+extlinks = {
+    'github': ('http://help.github.com/%s', 'github: '),
+    'progit' : ('http://git-scm.com/book/en/%s', 'Pro Git: '),
+    }
 if local_ref:
     extlinks['gitdoc'] = ('http://localhost/doc/git-doc/%s', 'git doc: ')
 else:
-    extlinks['gitdoc'] = ('https://www.kernel.org/pub/software/scm/git/docs/%s', 'git doc: ')
+    extlinks['gitdoc'] = (
+        'https://www.kernel.org/pub/software/scm/git/docs/%s',
+        'git doc: ')
