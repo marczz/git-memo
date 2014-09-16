@@ -5,7 +5,7 @@
 SPHINXOPTS    =
 PAPER         =
 BUILDDIR      = build
-ENV_VIRTUAL   = python3.3
+ENV_VIRTUAL   = python3.4
 ifdef WORKON_HOME
 SPHINXBUILD   = $(WORKON_HOME)/$(ENV_VIRTUAL)/bin/sphinx-build
 else
