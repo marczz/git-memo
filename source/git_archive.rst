@@ -1,6 +1,10 @@
 Git keyword expansion
 =====================
 
+.. index::
+   single:git;archive
+   archive
+
 We can archive the files using keywords defined in
 :gitdoc:`gitattributes <gitattributes.html>` by using the command
 :gitdoc:`git archive <git-archive.html>`.
@@ -30,13 +34,3 @@ I use in my C source files::
 
 To exports the committer date ``%ci``, the abbreviated tree hash
 ``<%t``, and the abbreviated commit hash ``%h``
-
-..  local variables
-
-    Local Variables:
-    rst-indent-width: 4
-    rst-indent-field: 4
-    rst-indent-literal-normal: 4
-    rst-indent-comment: 4
-    ispell-local-dictionary: "english"
-    End:

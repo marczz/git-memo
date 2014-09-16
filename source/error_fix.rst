@@ -6,7 +6,7 @@ Fixing errors
 
 Amend a commit
 --------------
-..  index:: git;commit --amend
+..  index:: single: git; commit --amend
 
 To amend the **last** commit::
 
@@ -16,7 +16,7 @@ To amend the **last** commit::
     $ # fix the commit message if necessary
 
 To amend a past commit on a clean working directory, you need to come
-back to the erroneous commit, fix it and :ref:`rebase` the latter
+back to the erroneous commit, fix it and :ref:`rebase:<rebase>` the latter
 commits on the the new fixed state.
 
 An example adapted from :gitdoc:`user-manual: Rewriting a
@@ -68,15 +68,16 @@ where you find an
 <interractive_rebase_example>`.
 
 ..  index::
-    pair: commit; squash
-    pair: commit; fixup
-    pair: rebase; autosquash
+    squash,fixup
+    single: git;commit --squash
+    single: git;commit --fixup
+    single: git;rebase --autosquash
 
 Commit a fixup and squash.
 --------------------------
 
-The :ref:`rebase --interactive <rebase_interactive>` \  can be made a lot
-simpler for fixing errors wit the ``git commit --fixup`` or
+The :ref:`interactive rebase <rebase_interactive>` \  can be made a lot
+simpler for fixing errors with the ``git commit --fixup`` or
 ``git commit --squash command``.
 
 On a clean worktree, or cleaned by a ``git stash``, you change your

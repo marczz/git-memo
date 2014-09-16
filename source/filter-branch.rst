@@ -1,5 +1,9 @@
 ..  _filter_branch:
 
+.. index::
+    pair: filter; branch
+    single: git; filter-branch
+
 Filter branch
 =============
 
@@ -108,7 +112,7 @@ also control the original namespace with ``--original`` option).
 ::
 
     git for-each-ref --format='%(refname)' refs/original | \
-        xargs -n 1 git update-ref -d
+	xargs -n 1 git update-ref -d
 
 
 Then your logs::

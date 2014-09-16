@@ -5,6 +5,10 @@ Merge and Patch
 
 .. index:: !merge
 
+.. index::
+    !single: git;merge
+    single: git;log
+
 Merging
 -------
 
@@ -48,6 +52,9 @@ Refs:
 
 -   :gitdoc:`git-merge.html`
 
+.. index::
+   !single:git;format-patch
+
 Submitting patches
 ------------------
 
@@ -63,6 +70,9 @@ Or with a commit range::
 
 Produces in the current directory a sequence of patches, with names
 from each commit log.
+
+.. index::
+   !single: git;am
 
 You can apply them one by one or as a whole with::
 

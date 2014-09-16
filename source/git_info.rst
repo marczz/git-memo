@@ -4,7 +4,7 @@ Ref: :gitdoc:`git tutorial <gittutorial.html>`
     :gitdoc:`Git User Manual <user-manual.html>`
 
 ..  index::
-        !single: git;status
+    !single: git;status
 
 Status
 ------
@@ -25,8 +25,8 @@ Status of the current directory::
   git status -- .
 
 ..  index::
-        branches
-        single: git;branch
+    branches
+    single: git;branch
 
 Branches
 --------
@@ -46,11 +46,11 @@ Show also what are the tracking branches, if any.::
     $ git branch -vv
 
 ..  index::
-        log
-        gitrevisions
-        !single: git;log
-        single: git;show
-        single: git;diff
+    log
+    gitrevisions
+    !single: git;log
+    single: git;show
+    single: git;diff
 
 Logs
 ----
@@ -186,10 +186,10 @@ You can attain any past commit not yet pruned by:
 
 
 ..  index::
-        gitrevisions
-        !single: git;diff
-        !single: git;difftool
-        single: git;format-patch
+    gitrevisions
+    !single: git;diff
+    !single: git;difftool
+    single: git;format-patch
 
 git diff
 --------
@@ -232,7 +232,7 @@ To know the list of available tools::
 To define a new tool you set in your ``.gitconfig``::
 
     [difftool "ediff"]
-        cmd = emacs --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"
+	cmd = emacs --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"
 
 You use a triple dot to get the diff between the common ancestor of
 *master* and *test* and the tip of *test*. *Warning: The semantic of the triple
@@ -246,9 +246,9 @@ Patch to apply to *master* to obtain *test*::
 
 
 ..  index::
-        gitk
-        tig
-        single: git;log
+    gitk
+    tig
+    single: git;log
 
 Commit tree
 -----------
@@ -274,7 +274,7 @@ You can also use :gitdoc:`git-log <git-log.html>`, with the option ``--graph``::
 
 
 ..  index::
-        !single: git;grep
+    !single: git;grep
 
 Looking file content in the tree
 --------------------------------
@@ -290,7 +290,7 @@ Refs:  :gitdoc:`git-grep(1) <git-grep.html>`
 
 
 ..  index::
-        single: git;show
+    !single: git;show
 
 
 Viewing other versions of a file
@@ -306,7 +306,7 @@ You can use a tag, a branch, or a commit sha.
     $ git show e05db0fd4f3:src/prog.py
 
 ..  index::
-        single: git;ls-files
+    single: git;ls-files
 
 Show the blog sha associated with a file in the index:
 
@@ -319,8 +319,12 @@ obtain with :gitdoc:`git ls-tree <git-ls-tree.html>`  or given by a
 *git show* on a tree object. See the details in the
 :gitdoc:`git manual: Commit Object <user-manual.html#commit-object>`.
 
+
 Finding the top level directory
 -------------------------------
+
+.. index::
+   single: git;rev-parse
 
 Ref: :gitdoc:`git-rev-parse(1) <git-rev-parse.html>`
 

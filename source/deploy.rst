@@ -7,6 +7,9 @@ On the remote::
   $ git init --bare
   Initialized empty Git repository in /home/user/website.git/
 
+.. index::
+    pair:hook; post-receive
+
 Define a post-receive hook::
 
   $ cat > hooks/post-receive
@@ -37,13 +40,3 @@ Ian Bicking does not like this strategy and prefer to:
 
 He writed `git-sync <https://github.com/ianb/git-sync>`_ automating
 this task
-
-..  local variables
-
-    Local Variables:
-    rst-indent-width: 4
-    rst-indent-field: 4
-    rst-indent-literal-normal: 4
-    rst-indent-comment: 4
-    ispell-local-dictionary: "english"
-    End:
