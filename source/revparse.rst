@@ -2,6 +2,7 @@
 
 Naming commits
 ==============
+.. index:: pair;git;rev-parse
 
 See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 :gitdoc:`gitrevisions <gitrevisions.html>`,
@@ -41,6 +42,10 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
         $ git name-rev --name-only 25f4b1d58e20
         master~3
 
+.. index::
+   hash
+   single:git; hash-object
+
 -   find the hash of some file
 
     -   Look at :progit:`Pro Git: Git
@@ -55,6 +60,9 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
         git hash-object <file>
         cat <file> | git hash-object --stdin
         (/usr/bin/stat  --printf "blob %s\0" calculette.c; cat calculette.c) | sha1sum
+
+.. index::
+   pair:git; remote
 
 -   to see remotes
 
@@ -89,6 +97,9 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
           remote.ssh_server.url ../ssh_server
           remote.ssh_server.fetch +refs/heads/*:refs/remotes/ssh_server/*
 
+.. index::
+   pair:git;describe
+
 -   version/most recent tag
 
     ::
@@ -106,6 +117,9 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
         $ git describe --long HEAD~29
         init-1.0-0-ge23c217
 
+
+.. index::
+   pair:git;name-rev
 
 -   past tips of branches
 
@@ -142,19 +156,3 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
     Nevertheless ``HEAD@{25}`` has been rebased as  ``HEAD~11`` and
     can be reached.
-
-
-
-
-
-
-
-..  local variables
-
-    Local Variables:
-    rst-indent-width: 4
-    rst-indent-field: 4
-    rst-indent-literal-normal: 4
-    rst-indent-comment: 4
-    ispell-local-dictionary: "english"
-    End:
