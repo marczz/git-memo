@@ -93,8 +93,8 @@ Refs:
       <http://factore.ca/on-the-floor/51-applying-merging-changes-from-one-git-repository-to-another>`_
   -   `git – applying patches
       <http://www.winksaville.com/blog/linux/git-applying-patches/>`_
-  -   `Pro Git: Maintaining a Project
-      <http://progit.org/book/ch5-3.html>`_
+  -   :progit:`Pro Git: Maintaining a Project
+      <Distributed-Git-Maintaining-a-Project>`_
   -   `gitready: pick out individual commits
       <http://gitready.com/intermediate/2009/03/04/pick-out-individual-commits.html>`_
       compare ``git cherry-pick``, ``git format-patch`` with ``git

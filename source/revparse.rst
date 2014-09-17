@@ -43,8 +43,9 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
 -   find the hash of some file
 
-    -   Look at `Pro Git: Git Objects
-        <http://progit.org/book/ch9-2.html>`_ for details
+    -   Look at :progit:`Pro Git: Git
+        Objects<Git-Internals-Git-Objects>`
+        for details.
 
         -   `Discussion by Linus Torvald
             <http://article.gmane.org/gmane.comp.version-control.git/44849>`_

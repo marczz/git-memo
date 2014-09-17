@@ -2,11 +2,12 @@ Git Hooks
 =========
 Hooks are little scripts you can place in `$GIT_DIR/hooks` directory
 
-refs: :gitdoc:`githooks <githooks.html>`, :progit:`Git Hooks`
+refs: :gitdoc:`githooks <githooks.html>`, :progit:`Pro Git: Git Hooks
+<Customizing-Git-Git-Hooks>`
 
 
 prepare_commit_msg
-------------------*
+------------------
 
 Ref: :gitdoc:`gitdoc:
 prepare_commit_msg<githooks.html#_prepare_commit_msg>`
