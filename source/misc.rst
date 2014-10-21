@@ -2,20 +2,11 @@ Miscellaneous operations
 ========================
 
 
-
-
-Adding an empty commit at root of a branch.
--------------------------------------------
-
-::
-
-    $ git symbolic-ref HEAD refs/heads/newroot
-    $ git clean -dxf
-    $ git commit --allow-empty -m 'root commit'
-    $ git rebase newroot master
-
--  repeat for other branches you want to rebase on the same newroot
--  You can then move to some branch and ``git branch -d newroot``
+..  index:
+    single: git; symbolic-ref
+    single: branch; change
+    single: git;new-workdir
+    single: git; reset
 
 switching branches without doing a checkout
 -------------------------------------------
