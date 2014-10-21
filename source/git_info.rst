@@ -46,6 +46,58 @@ Show also what are the tracking branches, if any.::
     $ git branch -vv
 
 ..  index::
+    single: tag; list
+    single: git; tag
+
+..  _tag_info:
+
+Tags
+----
+Refs: :gitdoc:`git-tag(1) <git-tag.html>`,
+
+To know your local tags::
+
+    $ gi tag
+    v1
+    v2
+
+If you want to know the annotation that *may* come with the tag you
+have to use the option ``--list <pattern>`` abr. ``-l<pattern>`` wich list the tages that
+match a shell pattern, and ``n<num>`` that allow *n* lines of
+annotation.
+
+To get all the tags with annotations::
+
+    $ git tag -n100 -l \*
+
+See also :ref:`remote_tags`
+
+..  index::
+    version
+    single: git; describe
+
+
+Describe
+--------
+
+Refs: :gitdoc:`git-describe <git-describe.html>`
+
+``git-describe`` show the the most recent tag that is reachable from a
+commit. By default it uses only annotated tags, but you can use any
+tag with ``--tags`` option.
+
+Exemple::
+
+    $ git tag
+    v0.2
+    v0.90
+    $ git describe
+    v0.90-3-g8a8e4de
+
+You are 3 commits after the version  v0.90 at the commit
+``8a8e4de``. The prefix ``g`` is added to indicate a git managed version.
+
+..  index::
     log
     gitrevisions
     !single: git;log
@@ -232,7 +284,7 @@ To know the list of available tools::
 To define a new tool you set in your ``.gitconfig``::
 
     [difftool "ediff"]
-	cmd = emacs --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"
+        cmd = emacs --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"
 
 You use a triple dot to get the diff between the common ancestor of
 *master* and *test* and the tip of *test*. *Warning: The semantic of the triple
