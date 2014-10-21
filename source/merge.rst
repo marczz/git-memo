@@ -1,8 +1,6 @@
 Merge and Patch
 ===============
 
-.. highlight:: bash
-
 .. index:: !merge
 
 .. index::
@@ -44,8 +42,8 @@ If in your repo you have a conflict in a file, but want to adopt either *ours*
 or *theirs* version of the file, you don't need to manually edit the
 merge, you can checkout the chosen file::
 
-  git checkout --theirs <file>
-  git add <file>
+  $ git checkout --theirs <file>
+  $ git add <file>
 
 
 Refs:
@@ -94,7 +92,7 @@ Refs:
   -   `git – applying patches
       <http://www.winksaville.com/blog/linux/git-applying-patches/>`_
   -   :progit:`Pro Git: Maintaining a Project
-      <Distributed-Git-Maintaining-a-Project>`_
+      <Distributed-Git-Maintaining-a-Project>`
   -   `gitready: pick out individual commits
       <http://gitready.com/intermediate/2009/03/04/pick-out-individual-commits.html>`_
       compare ``git cherry-pick``, ``git format-patch`` with ``git
