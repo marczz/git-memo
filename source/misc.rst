@@ -11,20 +11,24 @@ Miscellaneous operations
 switching branches without doing a checkout
 -------------------------------------------
 
+Refs:
+    :gitdoc:`git symbolic-ref <git-symbolic-ref.html>`,
+    :gitdoc:`git reset <git-reset.html>`,
+
 ::
 
-    git symbolic-ref HEAD refs/heads/otherbranch
+    $ git symbolic-ref HEAD refs/heads/otherbranch
 
 For every work on the branch you must get a fresh index with:
 
 ::
 
-    git reset
+    $ git reset
 
 The script ``git-new-workdir`` in the contrib directory creates a symlink to a repository,
 optionally with a new checked out branch::
 
-    git-new-workdir <repository> <newworkdir> [<branch>]
+    $ git-new-workdir <repository> <newworkdir> [<branch>]
 
 
 Transparent encryption
@@ -99,7 +103,9 @@ I first create some script ~/gitencrypt/passphrase::
 
     pass="my secret passphrase"
 
-~/gitencrypt/clean_filter::
+``~/gitencrypt/clean_filter``:
+
+..  code-block:: sh
 
     #!/bin/sh
 
@@ -107,21 +113,27 @@ I first create some script ~/gitencrypt/passphrase::
     . ${0%/*}/passphrase
     openssl enc -base64 -aes-256-cbc -S $salt -k "$pass"
 
- ~/gitencrypt/smudge_filter::
+``~/gitencrypt/smudge_filter``:
+
+..  code-block:: sh
 
     #!/bin/sh
 
     . ${0%/*}/passphrase
     openssl enc -d -base64 -aes-256-cbc -k "$salt"
 
- ~/gitencrypt/diff_filter::
+``~/gitencrypt/diff_filter``:
+
+..  code-block:: sh
 
     !/bin/sh
 
     . ${0%/*}/passphrase
     openssl enc -d -base64 -aes-256-ecb -k "$pass" -in "$1"
 
-and in my ``.git/config`` I add::
+and in my ``.git/config`` I add:
+
+..  code-block:: ini
 
     [filter "openssl"]
         smudge = /tmp/gitencrypt/smudge_filter
@@ -177,14 +189,19 @@ or look at the `article thread
 Using git-wip
 -------------
 
+Refs:
+    `git-wip repository and README <https://github.com/bartman/git-wip>`_
+
+**git-wip** is a script that will manage Work In Progress
+branches.
 
 To show the log of the commits in wip/master and not in master::
 
-    git log master..wip/master
+    $ git log master..wip/master
 
-You can add ``p`` to see what is added::
+You can add ``-p`` to see what is added::
 
-    git log -p master..wip/master
+    $ git log -p master..wip/master
 
 Here as usual for a git revision range ``master..wip/master``
 means all the commit in ``wip/master`` which are not in ``master``.
@@ -192,18 +209,18 @@ means all the commit in ``wip/master`` which are not in ``master``.
 
 To see the what is in wip and not committed to master you do::
 
-    git diff master...wip/master
+    $ git diff master...wip/master
 
 This shows the diff between the common ancestor of master and
 wip/master and master.
 
 ::
 
-    git diff master..wip/master
+    $ git diff master..wip/master
 
-is the same than
+is the same than::
 
-    git diff master wip/master
+    $ git diff master wip/master
 
 And represent the difference beetween master and wip/master, this is
 probably **not what you want** because if you have committed something
