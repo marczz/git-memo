@@ -1,5 +1,5 @@
 Fixing errors
-===============
+=============
 
 ..  index:: amend
 ..  index:: rebase
