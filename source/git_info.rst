@@ -1,5 +1,6 @@
 Repository Info
 ===============
+
 Ref: :gitdoc:`git tutorial <gittutorial.html>`
     :gitdoc:`Git User Manual <user-manual.html>`
 
@@ -327,19 +328,42 @@ You can also use :gitdoc:`git-log <git-log.html>`, with the option ``--graph``::
 
 ..  index::
     !single: git;grep
+    single: git;log
 
 Looking file content in the tree
 --------------------------------
-Refs:  :gitdoc:`git-grep(1) <git-grep.html>`
+Refs:
+    :gitdoc:`git-grep(1) <git-grep.html>`,
+    :gitdoc:`git-log(1) <git-log.html>`
 
 ::
 
     $ git grep "foo()"                   # search working directory for "foo()"
-    $ git grep 'defun.*init *(.*)'       # search working directory for pattern
-    $ git grep -E 'defun.*init *\(.*\)'  # use extended regexp (default basic)
+    $ git grep 'defun.*init *\(.*\)'     # search working directory for pattern
+    $ git grep -E 'defun.*init *(.*)'    # use extended regexp (default basic)
     $ git grep "foo()" v2.6.15           # search old tree for "foo()"
-    $ git grep init 6874caeedb3c -- *.el # search "init" in  .el files at some commit
+    $ git grep init 6874caeedb3c -- *.el # search "init" in .el files at some commit
 
+To search ``"foo()"`` in all files in all commit history::
+
+    $ git rev-list --all | xargs git grep "foo()"
+
+To look for the commits that **introduced** or **removed** ``"foo()"``::
+
+    $ git log -p -S "foo()"
+
+To search for commit that  **introduced** or **removed** an extended regex::
+
+    $ git log -p -S pickaxe-regex 'defun.*init *\(.*\)'
+
+To search for commit whose patch text contains added/removed lines that match
+a regex::
+
+    $  git log -p -G 'defun.*init *\(.*\)'
+
+``log -G`` will show a commit that just **moved** the regexp,
+without changing its number of occurences, while ``log -p -S pickaxe-regex``
+will not retain it.
 
 ..  index::
     !single: git;show
