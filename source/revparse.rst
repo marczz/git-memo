@@ -1,14 +1,18 @@
 .. _naming_commits:
 
+Objects names
+=============
+
 Naming commits
-==============
+--------------
+
 .. index:: pair;git;rev-parse
 
 See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
-:gitdoc:`gitrevisions <gitrevisions.html>`,
-:gitdoc:`git-name-rev <git-name-rev.html>`,
-:gitdoc:`git-describe <git-describe.html>`,
-:gitdoc:`git-reflog <git-reflog.html>`
+:gitdoc:`gitrevisions(7) <gitrevisions.html>`,
+:gitdoc:`git-name-rev(1) <git-name-rev.html>`,
+:gitdoc:`git-describe(1) <git-describe.html>`,
+:gitdoc:`git-reflog(1) <git-reflog.html>`
 
 -   To inspect your repository (and in scripts)
 
@@ -156,6 +160,64 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
     Nevertheless ``HEAD@{25}`` has been rebased as  ``HEAD~11`` and
     can be reached.
+
+..  index::
+    pair object; sha
+    single: file; sha
+    single: git;ls-files
+    single: git; ls-tree
+
+
+Finding the sha of a file
+-------------------------
+
+Refs:
+    :gitdoc:`git ls-files(1) <git-ls-tree.html>`,
+    :gitdoc:`git ls-tree(1) <git-ls-tree.html>`,
+    :gitdoc:`git-rev-parse(1) <git-rev-parse.html>`,
+    :gitdoc:`gitrevisions(7) <gitrevisions.html>`.
+
+To show the blog sha associated with a file **in the index**:
+
+::
+
+    $ git ls-files --stage somefile
+    100644 a8ca07da52ba219e2c76685b7e59b34da435a007 0	somefile
+
+:gitdoc:`git ls-file <git-ls-files.html>` use by default the cached
+content, while next commands can give any object commited or in the index.
+
+If you use plumbing commands, you can also show the blog sha of the
+object associated with a relative path in the *HEAD* revision by::
+
+    $ git ls-tree HEAD <path>
+
+You can also use path starting from the git worktree directory.
+If the root of your are in a directory *subdir* you get the same
+result with::
+
+    $ git ls-tree HEAD somefile
+    100644 blob 1a8bedab89a0689886cad63812fca9918d194a98	somefile
+    $ git ls-tree HEAD :somefile
+    100644 blob 1a8bedab89a0689886cad63812fca9918d194a98	somefile
+    $ git ls-tree HEAD :./somefile
+    100644 blob 1a8bedab89a0689886cad63812fca9918d194a98	somefile
+    git ls-tree HEAD :/subdir/file #note initial slash
+    100644 blob 1a8bedab89a0689886cad63812fca9918d194a98	somefile
+
+you can also use :gitdoc:`git rev-parse <git-rev-parse.html>` with::
+
+    $ git rev-parse HEAD:subdir/somefile # no leading slash
+    1a8bedab89a0689886cad63812fca9918d194a98
+    $ git rev-parse HEAD:./somefile
+    1a8bedab89a0689886cad63812fca9918d194a98
+    $ git rev-parse :./somefile # index cached content
+    a8ca07da52ba219e2c76685b7e59b34da435a007
+    $ git rev-parse :0:./somefile
+    a8ca07da52ba219e2c76685b7e59b34da435a007
+    $ sha1sum somefile # the unregisterd worktree version
+    67a21c581328157099e8eac97b063cff2fb1a807  somefile
+
 
 Finding the top level directory
 -------------------------------
