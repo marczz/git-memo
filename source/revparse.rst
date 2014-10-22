@@ -156,3 +156,48 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
     Nevertheless ``HEAD@{25}`` has been rebased as  ``HEAD~11`` and
     can be reached.
+
+Finding the top level directory
+-------------------------------
+
+.. index::
+   single: git;rev-parse
+
+Ref: :gitdoc:`git-rev-parse(1) <git-rev-parse.html>`
+
+To show the absolute path of the top-level directory.:
+::
+
+    $git rev-parse --show-toplevel
+
+To show the *relative* path of the top-level repository::
+
+    $git rev-parse --show-cdup
+
+or to show the path of the current directory relative to the
+top-level::
+
+    $git rev-parse --show-prefix
+
+I use it to have a default message showing paths relative to top-level
+with::
+
+    $git commit :/$(git rev-parse --show-prefix)<relative-name>
+
+
+To show the git directory:
+::
+
+    $git rev-parse --git-dir
+
+If ``$GIT_DIR`` is defined it is  returned otherwise when we are in
+Git directory return the ``.git`` directory, if not exit with nonzero
+status after printing an error message.
+
+To know if you are in a work-tree::
+
+    $git rev-parse --is-inside-work-tree
+
+Note also that an alias expansion  prefixed with an exclamation point
+will be executed from the top-level directory of a repository
+i.e. from ``git rev-parse --show-toplevel``.
