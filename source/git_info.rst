@@ -259,13 +259,14 @@ Diff and index:
 
 ::
 
-    # Changes in the working tree not yet staged for the next commit.
+    # Changes beetween the index and the working tree;
+    # i.e change in the working tree not yet staged for the next commit.
     $ git diff
-    # Changes between the index and your last commit;
+    # Changes between  your last commit and the index;
     # what you would be committing if you run "git commit" without "-a" option.
     $ git diff --cached
-    # Changes in the working tree since your last commit;
-    #what you would be committing if you run "git commit -a"
+    # Changes beetween your last commit and the working tree;
+    # what you would be committing if you run "git commit -a"
     $ git diff HEAD
 
 diffs between  two branches::
