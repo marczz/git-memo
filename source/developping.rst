@@ -5,9 +5,42 @@ Ref:
     :gitdoc:`User-manual: Developing with git
     <user-manual.html#Developing-With-git>`
 
-..  index:
-    single: git; commit
-    single: commit; format
+..  index
+    single:git; add
+    single:add; pattern
+    single:git; rm --cached
+    single:git; reset
+
+Adding files to the index
+-------------------------
+
+To add file to the index do::
+
+    $ git add file1 file2 file3
+
+To undo it::
+
+    $ git reset -- file1 file2 file3
+
+the previous command do not work before the first commit because you
+have no *HEAD*, but you can remove the files from the index *while
+keeping it in the working tree* with::
+
+  git rm --cached file1 file2 file3
+
+
+glob expansion
+~~~~~~~~~~~~~~
+There is a difference in the way the patterns are interpreted by git::
+
+    $ git add *.txt
+
+is a shell glob expansion it will add ``file.txt`` but not
+``subdir/other.txt`` while::
+
+    $ git add \*.txt
+
+is expanded by git and it will add both.
 
 ..  index
     single:git; add --interactive
@@ -17,7 +50,7 @@ Adding a part of a file
 Ref:
     :gitdoc:`git-add(1) <git-add.html>`,
     `git book: Interactive Staging
-    <http://git-scm.com/book/en/Git-Tools-Interactive-Staging>`
+    <http://git-scm.com/book/en/Git-Tools-Interactive-Staging>`_
 
 For a registered file, that has changed since last commit
 you can use ``git add --interactive`` or ``-i`` to select the patch to
@@ -36,7 +69,7 @@ add to the index::
       Waiting for Emacs...
       ....
       What now> s
-                staged     unstaged path
+		staged     unstaged path
       1:        +7/-0       +58/-0 source/developping.rst
       2:    unchanged        +1/-1 source/error_fix.rst
       .....
@@ -64,6 +97,11 @@ But you can use the sequence::
 content.
 
 Then the interactive add is done like above.
+
+..  index:
+    single: git; commit
+    single: commit; format
+
 
 Well formed commits
 -------------------
