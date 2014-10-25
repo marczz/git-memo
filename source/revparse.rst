@@ -18,33 +18,33 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
     ::
 
-        $ pwd
-        /home/marc/bash/lib
-        $ git rev-parse  --is-inside-git-dir
-        false
-        $ git rev-parse  --is-inside-work-tree
-        true
-        $ git rev-parse --git-dir
-        /shared/home/marc/bash/.git
-        $ git rev-parse --show-cdup
-        ../
-        $ git rev-parse --show-prefix
-        lib/
+	$ pwd
+	/home/marc/bash/lib
+	$ git rev-parse  --is-inside-git-dir
+	false
+	$ git rev-parse  --is-inside-work-tree
+	true
+	$ git rev-parse --git-dir
+	/shared/home/marc/bash/.git
+	$ git rev-parse --show-cdup
+	../
+	$ git rev-parse --show-prefix
+	lib/
 
 -   translating symbolic <-> sha
 
     ::
 
-        $ git rev-parse --symbolic-full-name HEAD
-        refs/heads/master
-        $ git symbolic-ref HEAD
-        refs/heads/master
-        $ git name-rev --name-only HEAD
-        master
-        $ git rev-parse  HEAD~3
-        25f4b1d58e20f2026a36d80073654f52b055537b
-        $ git name-rev --name-only 25f4b1d58e20
-        master~3
+	$ git rev-parse --symbolic-full-name HEAD
+	refs/heads/master
+	$ git symbolic-ref HEAD
+	refs/heads/master
+	$ git name-rev --name-only HEAD
+	master
+	$ git rev-parse  HEAD~3
+	25f4b1d58e20f2026a36d80073654f52b055537b
+	$ git name-rev --name-only 25f4b1d58e20
+	master~3
 
 .. index::
    hash
@@ -53,17 +53,17 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 -   find the hash of some file
 
     -   Look at :progit:`Pro Git: Git
-        Objects<Git-Internals-Git-Objects>`
-        for details.
+	Objects<Git-Internals-Git-Objects>`
+	for details.
 
-        -   `Discussion by Linus Torvald
-            <http://article.gmane.org/gmane.comp.version-control.git/44849>`_
+	-   `Discussion by Linus Torvald
+	    <http://article.gmane.org/gmane.comp.version-control.git/44849>`_
 
     ::
 
-        git hash-object <file>
-        cat <file> | git hash-object --stdin
-        (/usr/bin/stat  --printf "blob %s\0" calculette.c; cat calculette.c) | sha1sum
+	git hash-object <file>
+	cat <file> | git hash-object --stdin
+	(/usr/bin/stat  --printf "blob %s\0" calculette.c; cat calculette.c) | sha1sum
 
 .. index::
    pair:git; remote
@@ -72,34 +72,34 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
     ::
 
-        $ git remote
-        lighttpd
-        nx_server
-        ssh_server
-        ....
-        $ git rev-parse  --symbolic --remotes
-        lighttpd/master
-        nx_server/distribution
-        nx_server/kernoel
-        nx_server/master
-        ssh_server/distribution
-        ssh_server/kernoel
-        ssh_server/master
-        ssh_server/tubuntu
-        ....
+	$ git remote
+	lighttpd
+	nx_server
+	ssh_server
+	....
+	$ git rev-parse  --symbolic --remotes
+	lighttpd/master
+	nx_server/distribution
+	nx_server/kernoel
+	nx_server/master
+	ssh_server/distribution
+	ssh_server/kernoel
+	ssh_server/master
+	ssh_server/tubuntu
+	....
 
 -   remote details
 
     ::
 
-        $ git remote show ssh_server
-        * remote ssh_server
-          URL: ../ssh_server
-          Tracked remote branches
-          kernoel master tubuntu
-          $ git config --get-regexp remote\\.ssh_server\\..\*
-          remote.ssh_server.url ../ssh_server
-          remote.ssh_server.fetch +refs/heads/*:refs/remotes/ssh_server/*
+	$ git remote show ssh_server
+	* remote ssh_server
+	  URL: ../ssh_server
+	  Tracked remote branches
+	  kernoel master tubuntu
+	  $ git config --get-regexp remote\\.ssh_server\\..\*
+	  remote.ssh_server.url ../ssh_server
+	  remote.ssh_server.fetch +refs/heads/*:refs/remotes/ssh_server/*
 
 .. index::
    pair:git;describe
@@ -108,18 +108,18 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
     ::
 
-        $ git describe HEAD
-        init-1.0-29-gcb97cd9
-        $ git name-rev --name-only cb97cd9
-        master
-        $ git describe HEAD~14
-        init-1.0-15-g84aeca4
-        $ git name-rev --name-only 84aeca4
-        master~14
-        $ git describe HEAD~29
-        init-1.0
-        $ git describe --long HEAD~29
-        init-1.0-0-ge23c217
+	$ git describe HEAD
+	init-1.0-29-gcb97cd9
+	$ git name-rev --name-only cb97cd9
+	master
+	$ git describe HEAD~14
+	init-1.0-15-g84aeca4
+	$ git name-rev --name-only 84aeca4
+	master~14
+	$ git describe HEAD~29
+	init-1.0
+	$ git describe --long HEAD~29
+	init-1.0-0-ge23c217
 
 
 .. index::
@@ -134,24 +134,24 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
     actual head.
     ::
 
-        $ git name-rev HEAD@{25}
-        HEAD@{25} b3distrib~11
-        $ git rev-parse HEAD@{25}
-        2518dd006de12f8357e9694bf51a27bbd5bb5c7a
-        $ git rev-parse HEAD~11
-        2518dd006de12f8357e9694bf51a27bbd5bb5c7a
-        $ git name-rev 2518dd0
-        2518dd0 b3distrib~11
-        $ git rev-parse HEAD@{18}
-        0c4c8c0ea9ab54b92a2a6d2fed51d19c50cd3d76
-        $ git name-rev HEAD@{18}
-        HEAD@{18} undefined
-        $ git rev-parse HEAD@{14}~4
-        0c4c8c0ea9ab54b92a2a6d2fed51d19c50cd3d76
-        $ git rev-parse HEAD@{13}~5
-        24c85381f6d7420366e7a5e305c544a44f34fb0f
-        git log -1 -g --oneline HEAD@{13}
-        a1b9b5c HEAD@{13}: checkout: moving from b3distrib to a1b9b5c
+	$ git name-rev HEAD@{25}
+	HEAD@{25} b3distrib~11
+	$ git rev-parse HEAD@{25}
+	2518dd006de12f8357e9694bf51a27bbd5bb5c7a
+	$ git rev-parse HEAD~11
+	2518dd006de12f8357e9694bf51a27bbd5bb5c7a
+	$ git name-rev 2518dd0
+	2518dd0 b3distrib~11
+	$ git rev-parse HEAD@{18}
+	0c4c8c0ea9ab54b92a2a6d2fed51d19c50cd3d76
+	$ git name-rev HEAD@{18}
+	HEAD@{18} undefined
+	$ git rev-parse HEAD@{14}~4
+	0c4c8c0ea9ab54b92a2a6d2fed51d19c50cd3d76
+	$ git rev-parse HEAD@{13}~5
+	24c85381f6d7420366e7a5e305c544a44f34fb0f
+	git log -1 -g --oneline HEAD@{13}
+	a1b9b5c HEAD@{13}: checkout: moving from b3distrib to a1b9b5c
 
     In the previous example The 13th ancestor from the ``HEAD`` is a
     checkout at the beginning of a rebase so ``HEAD@{14}`` is now
@@ -175,7 +175,8 @@ Refs:
     :gitdoc:`git ls-files(1) <git-ls-tree.html>`,
     :gitdoc:`git ls-tree(1) <git-ls-tree.html>`,
     :gitdoc:`git-rev-parse(1) <git-rev-parse.html>`,
-    :gitdoc:`gitrevisions(7) <gitrevisions.html>`.
+    :gitdoc:`gitrevisions(7) <gitrevisions.html>`,
+    :gitdoc:`git hash-object(1) <git-hash-object.html>`.
 
 To show the blog sha associated with a file **in the index**:
 
@@ -184,11 +185,29 @@ To show the blog sha associated with a file **in the index**:
     $ git ls-files --stage somefile
     100644 a8ca07da52ba219e2c76685b7e59b34da435a007 0	somefile
 
-:gitdoc:`git ls-file <git-ls-files.html>` use by default the cached
-content, while next commands can give any object commited or in the index.
+This is **not** the *sha1 sum*
+of the raw content, but you can get it
+from any file *even unknown in your repository* with::
 
-If you use plumbing commands, you can also show the blog sha of the
-object associated with a relative path in the *HEAD* revision by::
+    $ git hash-object somefile
+    a8ca07da52ba219e2c76685b7e59b34da435a007
+    $ cat somefile | git hash-object --stdin
+    a8ca07da52ba219e2c76685b7e59b34da435a007
+
+The sha is derived from the content, and the size of the file, you can
+get it from the `sha1sum
+<http://manpages.debian.org/cgi-bin/man.cgi?query=sha1sum>`_
+command with::
+
+    $ (/usr/bin/stat  --printf "blob %s\0" somefile; cat somefile) | \
+      sha1sum
+    a8ca07da52ba219e2c76685b7e59b34da435a007
+
+While :gitdoc:`git ls-file <git-ls-files.html>` use by default the cached
+content, by using plumbing commands, you can also look at any object.
+
+To show the blog sha of the
+object associated with a relative path in the *HEAD*::
 
     $ git ls-tree HEAD <path>
 
@@ -215,7 +234,7 @@ you can also use :gitdoc:`git rev-parse <git-rev-parse.html>` with::
     a8ca07da52ba219e2c76685b7e59b34da435a007
     $ git rev-parse :0:./somefile
     a8ca07da52ba219e2c76685b7e59b34da435a007
-    $ sha1sum somefile # the unregisterd worktree version
+    $ git hash-object somefile # the unregisterd worktree version
     67a21c581328157099e8eac97b063cff2fb1a807  somefile
 
 
