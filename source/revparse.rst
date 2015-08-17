@@ -6,7 +6,10 @@ Objects names
 Naming commits
 --------------
 
-.. index:: pair;git;rev-parse
+.. index::
+   symbolic name
+   symbolic reference
+   single: git;rev-parse
 
 See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 :gitdoc:`gitrevisions(7) <gitrevisions.html>`,
@@ -18,57 +21,86 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
     ::
 
-	$ pwd
-	/home/marc/bash/lib
-	$ git rev-parse  --is-inside-git-dir
-	false
-	$ git rev-parse  --is-inside-work-tree
-	true
-	$ git rev-parse --git-dir
-	/shared/home/marc/bash/.git
-	$ git rev-parse --show-cdup
-	../
-	$ git rev-parse --show-prefix
-	lib/
+        $ pwd
+        /home/marc/bash/lib
+        $ git rev-parse  --is-inside-git-dir
+        false
+        $ git rev-parse  --is-inside-work-tree
+        true
+        $ git rev-parse --git-dir
+        /shared/home/marc/bash/.git
+        $ git rev-parse --show-cdup
+        ../
+        $ git rev-parse --show-prefix
+        lib/
+
+.. index::
+   single: git; symbolic-ref
+   single: git; name-ref
 
 -   translating symbolic <-> sha
-
     ::
 
-	$ git rev-parse --symbolic-full-name HEAD
-	refs/heads/master
-	$ git symbolic-ref HEAD
-	refs/heads/master
-	$ git name-rev --name-only HEAD
-	master
-	$ git rev-parse  HEAD~3
-	25f4b1d58e20f2026a36d80073654f52b055537b
-	$ git name-rev --name-only 25f4b1d58e20
-	master~3
+        $ git rev-parse --symbolic-full-name HEAD
+        refs/heads/master
+        $ git symbolic-ref HEAD
+        refs/heads/master
+        $ git name-rev --name-only HEAD
+        master
+        $ git rev-parse  HEAD~3
+        25f4b1d58e20f2026a36d80073654f52b055537b
+        $ git name-rev --name-only 25f4b1d58e20
+        master~3
 
 -  Where is this commit sha?
 
    Sometime you have a commit given by a revision sha number, say
+   `1fc1148f`, like the one you find in a
+   cherry-pick crossref. You may want to know where it is in your
+   repository.
 
    A simple :gitdoc:`describe <git-describe.html>` will only succeed if
+   it is referenced by a tag.  but you can use *--all* to match also
+   all branches, and *--contains* to find not only the branch but all
+   the contained refs.
+   ::
 
        $ git describe --all --contains   1fc1148f86
+       remotes/origin/distrib~11
 
-    ::
+   :gitdoc:`name-rev <git-name-rev.html>` will also give the same
+   symbolic ref.
+   ::
 
        $ git name-rev --name-only 1fc1148f86
+       remotes/origin/distrib~11
 
    We know that ``1fc1148f86`` is the eleventh commit from the
+   ``remotes/origin/distrib`` branch, but I prefer to name it relative
+   to the local `distrib` branch.
 
    We can use the `--refs` option yo limit the refs name, but using:
+   ::
 
      $   name-rev --name-only --refs=distrib 1fc1148f867
+     origin/distrib~11
 
    give the same answer than previously because ``origin-distrib``  is
+   also matched.
 
-    ::
+   To be more specific we use:
+   ::
+
+       $ git name-rev --name-only --refs=heads/distrib 1fc1148f867
+       distrib~12
+
+   If we want to see both the message and a symbolic ref we can do:
+   ::
 
        git log -1 distrib~12 | git name-rev --stdin
+       commit 1fc1148f867ee644f9c039fd3614ae5c48171276 (remotes/origin/distrib~11)
+       Author: .....
+       ....
 
 .. index::
    pair:git;describe
@@ -77,18 +109,18 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
     ::
 
-	$ git describe HEAD
-	init-1.0-29-gcb97cd9
-	$ git name-rev --name-only cb97cd9
-	master
-	$ git describe HEAD~14
-	init-1.0-15-g84aeca4
-	$ git name-rev --name-only 84aeca4
-	master~14
-	$ git describe HEAD~29
-	init-1.0
-	$ git describe --long HEAD~29
-	init-1.0-0-ge23c217
+        $ git describe HEAD
+        init-1.0-29-gcb97cd9
+        $ git name-rev --name-only cb97cd9
+        master
+        $ git describe HEAD~14
+        init-1.0-15-g84aeca4
+        $ git name-rev --name-only 84aeca4
+        master~14
+        $ git describe HEAD~29
+        init-1.0
+        $ git describe --long HEAD~29
+        init-1.0-0-ge23c217
 
 
 .. index::
@@ -103,24 +135,24 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
     actual head.
     ::
 
-	$ git name-rev HEAD@{25}
-	HEAD@{25} b3distrib~11
-	$ git rev-parse HEAD@{25}
-	2518dd006de12f8357e9694bf51a27bbd5bb5c7a
-	$ git rev-parse HEAD~11
-	2518dd006de12f8357e9694bf51a27bbd5bb5c7a
-	$ git name-rev 2518dd0
-	2518dd0 b3distrib~11
-	$ git rev-parse HEAD@{18}
-	0c4c8c0ea9ab54b92a2a6d2fed51d19c50cd3d76
-	$ git name-rev HEAD@{18}
-	HEAD@{18} undefined
-	$ git rev-parse HEAD@{14}~4
-	0c4c8c0ea9ab54b92a2a6d2fed51d19c50cd3d76
-	$ git rev-parse HEAD@{13}~5
-	24c85381f6d7420366e7a5e305c544a44f34fb0f
-	git log -1 -g --oneline HEAD@{13}
-	a1b9b5c HEAD@{13}: checkout: moving from b3distrib to a1b9b5c
+        $ git name-rev HEAD@{25}
+        HEAD@{25} b3distrib~11
+        $ git rev-parse HEAD@{25}
+        2518dd006de12f8357e9694bf51a27bbd5bb5c7a
+        $ git rev-parse HEAD~11
+        2518dd006de12f8357e9694bf51a27bbd5bb5c7a
+        $ git name-rev 2518dd0
+        2518dd0 b3distrib~11
+        $ git rev-parse HEAD@{18}
+        0c4c8c0ea9ab54b92a2a6d2fed51d19c50cd3d76
+        $ git name-rev HEAD@{18}
+        HEAD@{18} undefined
+        $ git rev-parse HEAD@{14}~4
+        0c4c8c0ea9ab54b92a2a6d2fed51d19c50cd3d76
+        $ git rev-parse HEAD@{13}~5
+        24c85381f6d7420366e7a5e305c544a44f34fb0f
+        git log -1 -g --oneline HEAD@{13}
+        a1b9b5c HEAD@{13}: checkout: moving from b3distrib to a1b9b5c
 
     In the previous example The 13th ancestor from the ``HEAD`` is a
     checkout at the beginning of a rebase so ``HEAD@{14}`` is now
@@ -139,6 +171,7 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
     single:git; hash-object
 
 
+.
 Finding the sha of a file
 -------------------------
 
