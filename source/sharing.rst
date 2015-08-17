@@ -41,6 +41,24 @@ rebase  the current branch on top of the upstream branch. But it uses
 relog information to avoid to rebase commits previously pulled from
 the remote.
 
+When you develop in a topic branch, you usually want to do ``git-pull
+--rebase`` instead of a mere pull, to get a clean patch above master.
+
+If master has progressed in an incompatible way with your work
+you may have to fix the conflict during rebase.
+
+If you want to always do a rebase when pulling you can set the config
+option ``branch.<name>.rebase`` to true.
+
+If you need to do a simple pull (fast-forward or merge) once you have
+to use the option ``--no-rebase`` to annihilate the effect of your
+config.
+
+See the options ``branch.autosetuprebase`` and ``pull.rebase`` in
+:gitdoc:`git config(1) <git-config.html>` to set automatic rebase
+to all branches, or a wide category of branches.
+
+
 ..  index:
     single: git; push
 
