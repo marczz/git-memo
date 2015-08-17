@@ -46,6 +46,48 @@ Show also what are the tracking branches, if any.::
 
     $ git branch -vv
 
+.. index::
+   remote
+   single: git; remote
+
+Remotes
+-------
+See also the :doc:`remote section <remote>`
+
+-   to see remotes
+
+    ::
+
+        $ git remote
+        lighttpd
+        nx_server
+        ssh_server
+        ....
+        $ git rev-parse  --symbolic --remotes
+        lighttpd/master
+        nx_server/distribution
+        nx_server/kernoel
+        nx_server/master
+        ssh_server/distribution
+        ssh_server/kernoel
+        ssh_server/master
+        ssh_server/tubuntu
+        ....
+
+-   remote details
+
+    ::
+
+        $ git remote show ssh_server
+        * remote ssh_server
+          URL: ../ssh_server
+          Tracked remote branches
+          kernoel master tubuntu
+          $ git config --get-regexp remote\\.ssh_server\\..\*
+          remote.ssh_server.url ../ssh_server
+          remote.ssh_server.fetch +refs/heads/*:refs/remotes/ssh_server/*
+
+
 ..  index::
     single: tag; list
     single: git; tag

@@ -58,41 +58,17 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 
        $ git name-rev --name-only 1fc1148f86
 
-.. index::
-   pair:git; remote
+   We know that ``1fc1148f86`` is the eleventh commit from the
 
--   to see remotes
+   We can use the `--refs` option yo limit the refs name, but using:
 
-    ::
+     $   name-rev --name-only --refs=distrib 1fc1148f867
 
-	$ git remote
-	lighttpd
-	nx_server
-	ssh_server
-	....
-	$ git rev-parse  --symbolic --remotes
-	lighttpd/master
-	nx_server/distribution
-	nx_server/kernoel
-	nx_server/master
-	ssh_server/distribution
-	ssh_server/kernoel
-	ssh_server/master
-	ssh_server/tubuntu
-	....
-
--   remote details
+   give the same answer than previously because ``origin-distrib``  is
 
     ::
 
-	$ git remote show ssh_server
-	* remote ssh_server
-	  URL: ../ssh_server
-	  Tracked remote branches
-	  kernoel master tubuntu
-	  $ git config --get-regexp remote\\.ssh_server\\..\*
-	  remote.ssh_server.url ../ssh_server
-	  remote.ssh_server.fetch +refs/heads/*:refs/remotes/ssh_server/*
+       git log -1 distrib~12 | git name-rev --stdin
 
 .. index::
    pair:git;describe
