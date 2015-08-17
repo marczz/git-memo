@@ -1,5 +1,10 @@
 ..  _remote_tracking:
 
+.. index:: !branch
+
+.. index::
+    !single: git;branch
+
 ..  index::
     remote; tracking
     pair: upstream; branch
@@ -22,10 +27,49 @@ default value of the global ``branch.autosetupmerge`` configuration flag.
 If you want to override this global setting, you can use the option
 ``--track`` or ``--no-track``.
 
+To start a local branch from *origin/mywork* and track the origin,
+you issue::
+
+    git branch  mywork origin/mywork
+
+The new branch is created, but the HEAD is unchanged, to move HEAD to
+*mywork* you have to issue::
+
+    git checkout mywork
+
+both command can be summarized in only one::
+
+    git checkout mywork
+
+because when the branch is not existing, git will look for a matching
+name for a remote tracking branch.
+
+Creating a branch from a remote tracking branch will set the
+following config options::
+
+    branch.mywork.remote=origin
+    branch.mywork.merge=refs/heads/mywork
+
+These options will cause a :gitdoc:`git pull<git-pull.html>` from
+*origin* to merge *origin/mywork* in *mywork*.
+
+You can also use non matching names::
+
+    git branch devel origin/mywork
+    git checkout devel
+
+is also done with::
+
+    git checkout -b devel --track origin/mywork
+
+or simply, since branch from a remote are implicitely tracked::
+
+    git checkout -b devel origin/mywork
+
 To start a local branch from *origin/mywork* but not track the origin,
 you issue::
 
-    git branch --no-track origin/mywork
+    git branch --no-track  mywork origin/mywork
 
 Note that for two local branches the default, is no tracking, so with::
 
@@ -35,7 +79,7 @@ or::
 
     git checkout -b develop master
 
-develop will not track master, unless you have used::
+*develop* will not track *master*, unless you have used::
 
     git branch --track  develop master
 
