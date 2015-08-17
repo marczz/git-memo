@@ -52,7 +52,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Git Memo'
-copyright = '2012-2014 Marc Zonzon'
+copyright = '2012-2015 Marc Zonzon'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
