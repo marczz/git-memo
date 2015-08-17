@@ -46,24 +46,17 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 	$ git name-rev --name-only 25f4b1d58e20
 	master~3
 
-.. index::
-   hash
-   single:git; hash-object
+-  Where is this commit sha?
 
--   find the hash of some file
+   Sometime you have a commit given by a revision sha number, say
 
-    -   Look at :progit:`Pro Git: Git
-	Objects<Git-Internals-Git-Objects>`
-	for details.
+   A simple :gitdoc:`describe <git-describe.html>` will only succeed if
 
-	-   `Discussion by Linus Torvald
-	    <http://article.gmane.org/gmane.comp.version-control.git/44849>`_
+       $ git describe --all --contains   1fc1148f86
 
     ::
 
-	git hash-object <file>
-	cat <file> | git hash-object --stdin
-	(/usr/bin/stat  --printf "blob %s\0" calculette.c; cat calculette.c) | sha1sum
+       $ git name-rev --name-only 1fc1148f86
 
 .. index::
    pair:git; remote
@@ -166,6 +159,8 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
     single: file; sha
     single: git;ls-files
     single: git; ls-tree
+    hash
+    single:git; hash-object
 
 
 Finding the sha of a file
@@ -177,6 +172,10 @@ Refs:
     :gitdoc:`git-rev-parse(1) <git-rev-parse.html>`,
     :gitdoc:`gitrevisions(7) <gitrevisions.html>`,
     :gitdoc:`git hash-object(1) <git-hash-object.html>`.
+
+    :progit:`Pro Git: Git Objects<Git-Internals-Git-Objects>`,
+    `Discussion by Linus Torvald
+    <http://article.gmane.org/gmane.comp.version-control.git/44849>`_
 
 To show the blog sha associated with a file **in the index**:
 
@@ -195,7 +194,7 @@ from any file *even unknown in your repository* with::
     a8ca07da52ba219e2c76685b7e59b34da435a007
 
 The sha is derived from the content, and the size of the file, you can
-get it from the `sha1sum
+get it without using git from the `sha1sum
 <http://manpages.debian.org/cgi-bin/man.cgi?query=sha1sum>`_
 command with::
 
