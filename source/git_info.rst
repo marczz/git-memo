@@ -100,7 +100,7 @@ Refs: :gitdoc:`git-tag(1) <git-tag.html>`,
 
 To know your local tags::
 
-    $ gi tag
+    $ git tag
     v1
     v2
 
