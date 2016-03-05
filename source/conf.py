@@ -283,6 +283,7 @@ local_ref = False
 extlinks = {
     'github': ('http://help.github.com/%s', 'github: '),
     'progit' : ('http://git-scm.com/book/en/%s', 'Pro Git: '),
+    'annex' : ('https://git-annex.branchable.com/%s', 'git-annex: ')
     }
 if local_ref:
     extlinks['gitdoc'] = ('http://localhost/doc/git-doc/%s', 'git doc: ')
