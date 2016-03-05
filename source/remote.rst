@@ -2,10 +2,12 @@
             !git; remote
 
 ..  _remote_repositories:
+
 Remote repositories
 ===================
 ..  index::
     git; clone
+    single: remote; clone
 
 ..  _remote_clone:
 
@@ -30,21 +32,18 @@ maps all remote refs in the local repository.
 Adding a new remote
 -------------------
 In my local ``git-memo`` repository:
-
 ::
 
     git remote add myserver git://myserver.com/cramz/git-memo.git
 
 add a new remote called ``myserver``, this does not fetch or push, or
 checkout anything, but the next:
-
 ::
 
     git fetch
 
 Will fetch ``refs/remotes/myserver/master``. This remote tracking
 branch is updated also by:
-
 ::
 
     git remote update myserver
@@ -59,9 +58,10 @@ To fetch all remotes::
 
     $ git remote update
 
-..  index:: config
+..  index:: single:remote; config
 
 ..  _remote_config:
+
 Remote configuration
 --------------------
 
@@ -75,12 +75,18 @@ To get remotes configuration  we can edit .git/config or
     remote.etc.tagopt --no-tags
 
 
-Options are added with commands like::
+or add options with gitdoc:`git-config(1)<git-config.html>` like::
 
     $ git config --add remote.etc.tagopt --no-tags
 
+..  index:: single: remote; bare
+
+..  _creating_bare_remote:
+
 creating a bare remote repository
 ---------------------------------
+You can either transfer a local bare repository or create an empty
+remote and push your branches.
 
 #.  copy local bare repo
     ::
@@ -104,6 +110,13 @@ creating a bare remote repository
            $ cd proj
            $ git remote add origin ssh://myserver.com/var/git/proj.git
            $ git push origin master
+
+These operations can also be used to create an ordinary remote, you
+simply omit the ``--bare`` option.
+
+..  index::
+    single: remote; push
+    single: remote; delete branch
 
 push and delete remote branches
 -------------------------------
