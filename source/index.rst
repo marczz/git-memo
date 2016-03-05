@@ -28,7 +28,7 @@ Contents:
     hooks.rst
     garbage_collecting.rst
     misc.rst
-
+    annex.rst
 
 
 Indices and tables
