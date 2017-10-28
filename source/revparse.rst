@@ -1,7 +1,7 @@
-.. _naming_commits:
-
 Objects names
 =============
+
+.. _commit_names:
 
 Naming commits
 --------------
@@ -16,6 +16,12 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 :gitdoc:`git-name-rev(1) <git-name-rev.html>`,
 :gitdoc:`git-describe(1) <git-describe.html>`,
 :gitdoc:`git-reflog(1) <git-reflog.html>`
+
+The ref name can be used in most git commands. As an example we show
+here the use with :gitdoc:`git-name-rev <git-name-rev.html>` and
+:gitdoc:`git-rev-parse <git-rev-parse.html>`, but you
+can use it wherever a revision is needed.
+
 
 -   To inspect your repository (and in scripts)
 
@@ -65,7 +71,7 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
    the contained refs.
    ::
 
-       $ git describe --all --contains   1fc1148f86
+       $ git describe --all --contains 1fc1148f86
        remotes/origin/distrib~11
 
    :gitdoc:`name-rev <git-name-rev.html>` will also give the same
@@ -126,6 +132,8 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
 .. index::
    pair:git;name-rev
 
+.. _reflog_history:
+
 -   past tips of branches
 
     We use the reflog, be careful that the reflog is local to your
@@ -162,6 +170,42 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
     Nevertheless ``HEAD@{25}`` has been rebased as  ``HEAD~11`` and
     can be reached.
 
+-   Commits at a certain time. We can look at the *local* log for a
+    commit made at a specific time. If we want to look at the HEAD
+    branch, we can use a ``@{date}``. Exemples
+
+    ::
+
+        $ git rev-parse @{1month}
+        97491a2d5d6a668116acff359ed4fd874d800f6f
+        $ git rev-parse @{1week}
+        a400ee44b01c093c595c79c15b8f049713daeb78
+        $ git rev-parse @{2017-09-26}
+        97491a2d5d6a668116acff359ed4fd874d800f6f
+
+    Note that this syntax look only at the local log, it does not mean tht
+    this commit is still in the history of the branch.
+
+    ::
+
+        $ git name-rev --name-only @{1week}
+        master~5
+        $ git name-rev --name-only @{3weeks}
+        undefined
+
+    If I want to know the actual log of the present HEAD, 3 weeks
+    ago I will not use ``@{3weeks}`` but
+
+    ::
+
+        $ git log --since 3weeks
+
+    If we want to explore the log of another branch we use
+
+    ::
+
+        $ git rev-parse dev@{1hour}
+
 ..  index::
     pair object; sha
     single: file; sha
@@ -171,7 +215,6 @@ See :gitdoc:`git-rev-parse <git-rev-parse.html>`,
     single:git; hash-object
 
 
-.
 Finding the sha of a file
 -------------------------
 
