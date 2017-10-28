@@ -279,6 +279,8 @@ You can attain any past commit not yet pruned by:
     $ git log master@{1}
     $ git show HEAD@{"1 week ago"}
 
+See more on :ref:`reflog history<reflog_history>` in the section on
+:ref:`commit names<commit_names>`.
 
 ..  index::
     gitrevisions
@@ -385,7 +387,11 @@ Refs:
     $ git grep 'defun.*init *\(.*\)'     # search working directory for pattern
     $ git grep -E 'defun.*init *(.*)'    # use extended regexp (default basic)
     $ git grep "foo()" v2.6.15           # search old tree for "foo()"
+    $ git grep "foo()" HEAD~4            # where was "foo()" 4 commits ago.
+    $ git grep "foo()" @{1month}          # search "foo()" in the tree on previous month
     $ git grep init 6874caeedb3c -- *.el # search "init" in .el files at some commit
+
+See :ref:`here <commit_names>` for the different ways of naming commits.
 
 To search ``"foo()"`` in all files in all commit history::
 
