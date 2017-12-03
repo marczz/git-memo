@@ -127,15 +127,100 @@ editing::
 
 Then you can examine the status with::
 
-  $ git status
+    $ git status
 
 and add some files and stage the appropriate hunks. It can be easy to
 use::
 
-  $ git gui
+    $ git gui
 
 to commit the appropriate hunks in individual commits
 
 Then you can as usual do::
 
     $ git rebase --continue.
+
+..  index::
+    broken repository
+    packed objects
+    single:git;verify-pack
+    single:git;unpack-objects
+    single:git;fsck
+
+
+Broken repository
+-----------------
+I repeat a warning so often given, so often forgot : *Keep a copy of
+your repository before making any destructive change on
+the repository internals*.
+
+It can happen that a repository become corrupted. When doing any
+operation that check the repo structure, often when trying to commit,
+you have this error::
+
+    error: invalid object 100644 db4f06caa1f321c01c667572f08449e8ebfc0713 for 'mystory.txt'
+
+
+When you do a structure check in the repo you have::
+
+    $ git fsck --full
+    Checking object directories: 100% (256/256), done.
+    Checking objects: 100% (7448/7448), done.
+    dangling commit e733d3ed3e27725db037078e56006c54fe3b6095
+    dangling commit 35b7ea4d2648bd3d2cbfeaf90d2ddb0742211517
+    dangling commit 323ebd233c5fa597cbd354ffae1ecc30643605ad
+    missing blob db4f06caa1f321c01c667572f08449e8ebfc0713
+    dangling commit bb5152e989824799cc7a0de8e4753b411c17feb5
+    dangling commit 90d7899f21ec19abdc59764162a4161a7e9451f8
+
+The dangling commits are not an error, there are just objects that are
+not in any branch, may be because you have rebased, after some time
+they will go away during a garbage collect.
+
+The missing blob imply that the named blob is neither in
+``.git/objects/`` namely with this hash in ``.git/objects/d4/``
+or in a pack inside ``.git/objects/pack`` there are two ways of fixing
+it either find it in another repo or recreate it.
+
+To find the object in a copy of your repo you can also look at the
+``objects/d4/`` repo; but it it gives only loose object that are not
+yet packed. You can see the blobs in a pack by::
+
+    $ git show-index .git/objects/pack/pack-ef11586b8de074c2b62c5a148b16096806adeb1c.idx | cut -f 2 -d ' '
+
+or::
+
+    $ git verify-pack -v .git/objects/pack/pack-ef11586b8de074c2b62c5a148b16096806adeb1c.idx |\
+    grep ' blob ' | cut -f 1 -d ' '
+
+but if you just want to check if the pack contains your object::
+
+    $ git show-index .git/objects/pack/pack-ef11586b8de074c2b62c5a148b16096806adeb1c.idx |\
+    grep db4f06caa1f321c01c667572f08449e8ebfc0713
+
+Then you can unpack the pack to make the object loose again by moving the pack
+out of the repo and issuing::
+
+    $ git unpack-objects < .git/objects/pack/pack-ef11586b8de074c2b62c5a148b16096806adeb1c.pack
+
+If the pack is corrupt you need to add the ``-r`` option.
+
+If you don't succeed to find a copy of the missing object there is an
+other way, that is to recreate the object. I will not deal with it
+here, because it is very well explained in
+`How to fix a broken repository? from the Git FAQ
+<https://git.wiki.kernel.org/index.php/GitFaq#fix-broken-repo>`_.
+
+And if nothing work and this information is lost, you can keep going
+by `removing the broken refs
+<https://git.wiki.kernel.org/index.php/GitFaq#How_to_remove_all_broken_refs_from_a_repository.3F>`_.
+
+References:
+:gitdoc:`git core tutorial: Packing your repository
+<gitcore-tutorial.html#_packing_your_repository>`,
+`Git Pro: Packfiles
+<https://git-scm.com/book/uz/v2/Git-Internals-Packfiles>`_,
+:gitdoc:`git-fsck(1) <git-fsck.html>`,
+:gitdoc:`git-show-index(1) <git-show-index.html>`,
+:gitdoc:`git-verify-pack(1) <git-verify-pack.html>`,
+:gitdoc:`git-unpack-objects(1) <git-unpack-objects.html>`.
