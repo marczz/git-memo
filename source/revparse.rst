@@ -183,7 +183,7 @@ can use it wherever a revision is needed.
         $ git rev-parse @{2017-09-26}
         97491a2d5d6a668116acff359ed4fd874d800f6f
 
-    Note that this syntax look only at the local log, it does not mean tht
+    Note that this syntax look only at the local log, it does not mean that
     this commit is still in the history of the branch.
 
     ::
@@ -193,12 +193,16 @@ can use it wherever a revision is needed.
         $ git name-rev --name-only @{3weeks}
         undefined
 
-    If I want to know the actual log of the present HEAD, 3 weeks
-    ago I will not use ``@{3weeks}`` but
+    .. Comment
 
-    ::
+        The following does not work as expected, should check why.
 
-        $ git log --since 3weeks
+        If I want to know the actual log of the present HEAD, 3 weeks
+        ago I will not use ``@{3weeks}`` but
+
+        ::
+
+            $ git log --until='3 weeks'
 
     If we want to explore the log of another branch we use
 
