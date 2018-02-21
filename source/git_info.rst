@@ -401,18 +401,24 @@ To look for the commits that **introduced** or **removed** ``"foo()"``::
 
     $ git log -p -S "foo()"
 
-To search for commit that  **introduced** or **removed** an extended regex::
+To look for the commits that **introduced** or **removed** ``"foo()"``
+ignoring the letter case in the file *hello.c*; and following renames::
 
-    $ git log -p -S pickaxe-regex 'defun.*init *\(.*\)'
+    $ git log -p --follow -i -S "foo()" -- hello.c
 
-To search for commit whose patch text contains added/removed lines that match
-a regex::
+To search for commit that  **introduced** or **removed** an extended
+regex::
+
+    $ git log -p -S'defun.*init *\(.*\)' --pickaxe-regex
+
+To search for commit whose patch text contains added/removed lines
+that match a regex::
 
     $  git log -p -G 'defun.*init *\(.*\)'
 
 ``log -G`` will show a commit that just **moved** the regexp,
-without changing its number of occurences, while ``log -p -S pickaxe-regex``
-will not retain it.
+without changing its number of occurences, while
+``log -p -S'regex' --pickaxe-regex`` will not retain it.
 
 ..  index::
     !single: git;show
