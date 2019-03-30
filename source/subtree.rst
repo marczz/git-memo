@@ -144,7 +144,7 @@ Now our repository look like this.
     size = 3.8;
     rankdir=RL;
     node [shape=circle, style=filled, color=aquamarine,/* fontsize=9,*/ height=0.3,
-    width=0.3];
+       width=0.3];
     g [shape=ellipse, label="g: master", color=magenta];
     g -> f -> e -> d -> c;
     v [shape=ellipse, label="v: git-memo/master", color="magenta"];
@@ -155,7 +155,7 @@ We want to add the remote in a subtree of our main repo rooted at
 ``./gitmemo``. We have to choose how we will mix the commits of the
 two branches, either they can be intermixed, or we can squash all the
 commits in one, before adding them. As the first option would mixe in
-the commit timeline completely foreign works, wechoose to squash with:
+the commit timeline completely foreign works, we choose to squash with:
 
 ::
 
@@ -168,7 +168,7 @@ And we obtain:
     /*size = 5;*/
     rankdir=RL;
     node [shape=circle, style=filled, color=aquamarine, fontsize=7, height=0.2,
-    width=0.2, margin=0.025,0.025];
+       width=0.2, margin="0.025,0.025"];
     nodesep=0.2;
     g [shape=ellipse, label="g: master", color=magenta];
     aa [shape=box,
@@ -192,7 +192,7 @@ like this:
     /*size = 5;*/
     rankdir=RL;
     node [shape=circle, style=filled, color=aquamarine, fontsize=7, height=0.2,
-    width=0.2, margin=0.025,0.025];
+       width=0.2, margin="0.025,0.025"];
     nodesep=0.2;
     h [shape=ellipse, label="h: master", color=magenta];
     aa [shape=box,
