@@ -70,12 +70,125 @@ Refs:
     :gitdoc:`git manual: Pushing changes
     <user-manual.html#pushing-changes-to-a-public-repository>`
 
-To push your master branch to the *origin* repo:
+..  index:
+    single: remote branch; create
+
+Pushing to a registered remote
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have a register remote *origin*
+
 ::
 
-    git push origin master
+    $ git remote
+    origin
 
-The origin should be ref:`configured as remote <remote_config>`.
+You can push a branch to it with
+
+::
+
+    $ git push mybranch origin
+
+It will push all references in the branch *mybranch* to a branch with same name on
+*origin*. If the remote *mybranch* does not exist it is created.
+
+If *mybranch* has a configured :ref:`upstream branch<remote_tracking>` that ou can see
+with
+xs
+::
+
+    $git branch -vv --list mybranch
+
+or
+
+::
+
+    $ git config branch.mybranch.merge
+
+you can omit the remote and do:
+::
+
+    $ git push mybranch
+
+If may branch is the current checked out branch, you can also omit the branch and do:
+::
+
+    $ git push
+
+The remote branch is supposed to be an ancestor of the local one, and git refuses to
+push if it is not the case, sometime, like after a rebase, you want to override thsi
+restriction *(tis is to avoid if the remote is shared with other developers)* and you
+do:
+::
+
+    $ git push --force mybranch
+
+
+
+Creating a new remote branch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+To push a *feature* branch to the *origin* repo with the same name:
+::
+
+    $ git push origin feature
+
+The origin should be :ref:`configured as remote <remote_config>`.
+
+If you want to track the changes of the remote branch, as explained in the
+:ref:`Remote tracking section <remote_tracking>` you can
+do:
+::
+
+    $ git push --set-upstream origin feature
+
+You can also later change the remote tracking setting as :ref:`explained in this section
+<remote_tracking>`.
+
+
+You can also push it with a distinct name
+::
+
+    $ git push origin feature:joe_new_feature
+
+
+..  index:
+    pair: remote branch; delete
+
+Delete a remote branch
+~~~~~~~~~~~~~~~~~~~~~~
+
+If you want later to delete the remote branch:
+::
+
+    $ git push origin :feature
+
+or:
+::
+
+    $ git push --delete origin feature
+
+..  index:
+    pair: remote branch; move
+
+
+Rename a remote branch
+~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to rename a branch and its remote, say rename *oldbranch* to *newbranch*
+you first rename on the local machine, and push it to the remote, then delete the old
+remote:
+::
+
+    $ git branch -m oldbranch newbranch
+    $ git push --set-upstream origin newbranch
+    $ git push origin :oldbranch
+
+An other will still see the local copy of ``remotes/origin/oldbranch``, to clean the
+remote list do on this client
+::
+
+    $ git remote prune origin
+
 
 ..  index:
     single: tag; share
@@ -144,8 +257,7 @@ It is equivallent to::
     $ git show-ref --tags --dereference
 
 ..  index:
-    single: tag; fetch
-    single: git; fetch
+    pair: tag; fetch
 
 Fetching remote tags
 ~~~~~~~~~~~~~~~~~~~~
@@ -170,8 +282,7 @@ Then you can examine it with :ref:`git tag <tag_info>`, or with::
     ........
 
 ..  index:
-    single: tag; push
-    single: git; push
+    pair: tag; push
 
 Pushing Tags to remote
 ~~~~~~~~~~~~~~~~~~~~~~
