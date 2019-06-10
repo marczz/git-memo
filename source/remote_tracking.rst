@@ -27,25 +27,54 @@ default value of the global ``branch.autosetupmerge`` configuration flag.
 If you want to override this global setting, you can use the option
 ``--track`` or ``--no-track``.
 
+Listing upsteam branches
+------------------------
+
+To see what are the upstream branches of your branches you can do:
+::
+
+    $ git branch -vv
+
+or for a specific branch *mybranch*:
+::
+
+    $git branch -vv --list mybranch
+
+or:
+::
+
+    $ git config branch.mybranch.merge
+
+To know what branch are tracked by a specific remote *origin*:
+::
+
+    $ git remote show origin
+
+
+Create a branch and track the origin
+------------------------------------
+
 To start a local branch from *origin/mywork* and track the origin,
 you issue::
 
-    git branch  mywork origin/mywork
+    $ git branch  mywork origin/mywork
 
 The new branch is created, but the HEAD is unchanged, to move HEAD to
 *mywork* you have to issue::
 
-    git checkout mywork
+    $ git checkout mywork
 
 both command can be summarized in only one::
 
-    git checkout mywork
+    $ git checkout mywork
 
 because when the branch is not existing, git will look for a matching
 name for a remote tracking branch.
 
 Creating a branch from a remote tracking branch will set the
-following config options::
+following config options:
+
+:: code-block:: ini
 
     branch.mywork.remote=origin
     branch.mywork.merge=refs/heads/mywork
@@ -55,52 +84,55 @@ These options will cause a :gitdoc:`git pull<git-pull.html>` from
 
 You can also use non matching names::
 
-    git branch devel origin/mywork
-    git checkout devel
+    $ git branch devel origin/mywork
+    $ git checkout devel
 
 is also done with::
 
-    git checkout -b devel --track origin/mywork
+    $ git checkout -b devel --track origin/mywork
 
 or simply, since branch from a remote are implicitely tracked::
 
-    git checkout -b devel origin/mywork
+    $ git checkout -b devel origin/mywork
+
+Asking to not track
+-------------------
 
 To start a local branch from *origin/mywork* but not track the origin,
 you issue::
 
-    git branch --no-track  mywork origin/mywork
+    $ git branch --no-track  mywork origin/mywork
 
 Note that for two local branches the default, is no tracking, so with::
 
-    git branch develop master
+    $ git branch develop master
 
 or::
 
-    git checkout -b develop master
+    $ git checkout -b develop master
 
 *develop* will not track *master*, unless you have used::
 
-    git branch --track  develop master
+    $ git branch --track  develop master
 
 or::
 
-    git checkout -b --track  develop master
+    $ git checkout -b --track  develop master
 
 
 You can add a tracking of an upstream branch with::
 
-    git branch --set-upstream-to=origin/mywork mywork
+    $ git branch --set-upstream-to=origin/mywork mywork
 
 This is specially usefull whan you first created *mywork* and  then
 pushed it to *origin* as::
 
-    git push origin mywork
+    $ git push origin mywork
 
 will not set *origin/mywork* as remote tracking branch for *mywork*,
 except if you explicitly issue::
 
-    git push --set-upstream origin mywork
+    $ git push --set-upstream origin mywork
 
 or have set  ``branch.autosetupmerge`` to ``always``.
 
@@ -114,7 +146,9 @@ two configuration variables ``branch.<name>.remote`` and
 ``branch.<name>.merge``.
 
 The previous tracking branch will result in a configuration
-including::
+including:
+
+..  code-block:: ini
 
     [branch "mywork"]
     remote = origin
@@ -131,17 +165,8 @@ setting a local branch as upstream for an other local branch.
 
 ..   source for article
 
-    -   [[http://stackoverflow.com/questions/14169130/difference-between-git-branch-set-upstream-to-vs-git-remote-add-origin][Difference between git branch --set-upstream-to vs git remote add
-        origin - Stack Overflow]]
-    -   [[http://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time][git - Why do I need to do `--set-upstream` all the time? - Stack
-        Overflow]]
-    -   [[http://felipec.wordpress.com/2013/09/01/advanced-git-concepts-the-upstream-tracking-branch/][the upstream tracking branch | Felipe Contreras]]
     -   [[http://gitready.com/beginner/2009/03/09/remote-tracking-branches.html][git ready » remote tracking branches]]
     -   [[https://blogs.atlassian.com/2013/07/git-upstreams-forks/][Git Forks And Upstreams- Atlassian Blogs]]
     -   [[http://alblue.bandlem.com/2011/07/git-tip-of-week-tracking-branches.html][Tracking Branches - AlBlue’s Blog]]
     -   [[http://ginsys.eu/git-and-github-keeping-a-feature-branch-updated-with-upstream/][Git and Github: keeping a feature branch updated with
         upstream?]]
-    -   *** [[http://serverfault.com/questions/175052/how-to-tell-which-local-branch-is-tracking-which-remote-branch-in-git][How to tell which local branch is tracking which remote
-        branch in Git? - Server Fault]]
-    -   [[http://stackoverflow.com/questions/1526794/git-rename-master-branch-for-both-local-and-remote-repository][Git: Rename "master" branch for both local and remote
-        repository - Stack Overflow]]
