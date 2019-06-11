@@ -84,16 +84,38 @@ These options will cause a :gitdoc:`git pull<git-pull.html>` from
 
 You can also use non matching names::
 
-    $ git branch devel origin/mywork
+    $ git branch --track devel origin/mywork
     $ git checkout devel
 
 is also done with::
 
     $ git checkout -b devel --track origin/mywork
 
-or simply, since branch from a remote are implicitely tracked::
+Since branches from a remote are implicitely tracked, you can omit the ``--track``
+option from the previous two commands and do::
+
+    $ git branch --track devel origin/mywork
+    $ git checkout devel
+
+or::
 
     $ git checkout -b devel origin/mywork
+
+
+The default when you create a branch from an other local branch is to not track,
+
+When you do ::
+
+  $ git branch newdev devel
+
+devel is not tracked, if you want to have it tracked you should use::
+
+  $  git branch --track  newdev devel
+
+These defaults depend of the global configuration option ``branch.autoSetupMerge`` whose
+default value is ``true``.
+
+
 
 Asking to not track
 -------------------
@@ -134,8 +156,6 @@ except if you explicitly issue::
 
     $ git push --set-upstream origin mywork
 
-or have set  ``branch.autosetupmerge`` to ``always``.
-
 ``--set-upstream`` is abridged in ``-u``.
 
 Configuration of upstream branches
@@ -165,7 +185,6 @@ setting a local branch as upstream for an other local branch.
 
 ..   source for article
 
-    -   [[http://gitready.com/beginner/2009/03/09/remote-tracking-branches.html][git ready » remote tracking branches]]
     -   [[https://blogs.atlassian.com/2013/07/git-upstreams-forks/][Git Forks And Upstreams- Atlassian Blogs]]
     -   [[http://alblue.bandlem.com/2011/07/git-tip-of-week-tracking-branches.html][Tracking Branches - AlBlue’s Blog]]
     -   [[http://ginsys.eu/git-and-github-keeping-a-feature-branch-updated-with-upstream/][Git and Github: keeping a feature branch updated with
