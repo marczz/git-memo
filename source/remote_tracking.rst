@@ -74,13 +74,20 @@ name for a remote tracking branch.
 Creating a branch from a remote tracking branch will set the
 following config options:
 
-:: code-block:: ini
+..  code-block:: ini
 
     branch.mywork.remote=origin
     branch.mywork.merge=refs/heads/mywork
 
-These options will cause a :gitdoc:`git pull<git-pull.html>` from
-*origin* to merge *origin/mywork* in *mywork*.
+The first line tell what is the default remote to fetch and push to. If you want to
+fetch/pull from one remote and push to another one use ``remote`` for fetching and
+``pushremote`` for pushing.
+
+The second line tell which ref on the remote should be used for fetching, pulling and
+rebasing.
+
+Togrther these options will cause a :gitdoc:`git pull<git-pull.html>` without remote nor
+refspec given, to merge *origin/mywork* in *mywork*.
 
 You can also use non matching names::
 
