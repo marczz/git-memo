@@ -1,19 +1,18 @@
 ..  _remote_tracking:
 
-.. index:: !branch
-
-.. index::
-    !single: git;branch
-
 ..  index::
-    remote; tracking
+    branch
+    !single: git;branch
+    pair: remote; tracking
     pair: upstream; branch
+    pair: branch; track
 
+========================
 Remote tracking branches
 ========================
 
 Tracking or not tracking
-------------------------
+========================
 
 When you :ref:`clone a remote repository <remote_clone>` all the
 remote branches are tracked and set as *upstream branch* for
@@ -27,8 +26,8 @@ default value of the global ``branch.autosetupmerge`` configuration flag.
 If you want to override this global setting, you can use the option
 ``--track`` or ``--no-track``.
 
-Listing upsteam branches
-------------------------
+Listing upstream branches
+=========================
 
 To see what are the upstream branches of your branches you can do:
 ::
@@ -50,9 +49,13 @@ To know what branch are tracked by a specific remote *origin*:
 
     $ git remote show origin
 
+..  _create_and_track:
 
-Create a branch and track the origin
-------------------------------------
+Create a branch and track the originw
+=====================================
+
+Example with matching name
+--------------------------
 
 To start a local branch from *origin/mywork* and track the origin,
 you issue::
@@ -71,23 +74,9 @@ both command can be summarized in only one::
 because when the branch is not existing, git will look for a matching
 name for a remote tracking branch.
 
-Creating a branch from a remote tracking branch will set the
-following config options:
 
-..  code-block:: ini
-
-    branch.mywork.remote=origin
-    branch.mywork.merge=refs/heads/mywork
-
-The first line tell what is the default remote to fetch and push to. If you want to
-fetch/pull from one remote and push to another one use ``remote`` for fetching and
-``pushremote`` for pushing.
-
-The second line tell which ref on the remote should be used for fetching, pulling and
-rebasing.
-
-Togrther these options will cause a :gitdoc:`git pull<git-pull.html>` without remote nor
-refspec given, to merge *origin/mywork* in *mywork*.
+Example with non matching names
+-------------------------------
 
 You can also use non matching names::
 
@@ -108,8 +97,12 @@ or::
 
     $ git checkout -b devel origin/mywork
 
+..  _tracking_defaults:
 
-The default when you create a branch from an other local branch is to not track,
+Tracking defaults
+=================
+The default when creating a branch from a remote is to track the remote, but
+when you create a branch from an other local branch is to not tracked by default.
 
 When you do ::
 
@@ -125,7 +118,7 @@ default value is ``true``.
 
 
 Asking to not track
--------------------
+===================
 
 To start a local branch from *origin/mywork* but not track the origin,
 you issue::
@@ -149,7 +142,8 @@ or::
     $ git checkout -b --track  develop master
 
 
-You can add a tracking of an upstream branch with::
+You can also :ref:`add to any branch a tracking of an upstream branch<set_upstream>`
+::
 
     $ git branch --set-upstream-to=origin/mywork mywork
 
@@ -165,15 +159,46 @@ except if you explicitly issue::
 
 ``--set-upstream`` is abridged in ``-u``.
 
+..  _upstream_config:
+
+..  index::
+    pair: upstream; config
+    single: branch; remote
+    single: branch; merge
+    pair: branch; config
+
 Configuration of upstream branches
-----------------------------------
+==================================
 
 A branch is registered as *upstream* for another one by setting the
 two configuration variables ``branch.<name>.remote`` and
 ``branch.<name>.merge``.
 
-The previous tracking branch will result in a configuration
-including:
+These two configuration options are described in
+:gitdoc:`git-config(1) <git-config.html>`.
+
+The previous tracking branch will set the following config options:
+
+..  code-block:: ini
+
+    branch.mywork.remote=origin
+    branch.mywork.merge=refs/heads/mywork
+
+The first line tell what is the default remote to fetch and push to. If you want to
+fetch/pull from one remote and push to another one use ``remote`` for fetching and
+``pushremote`` for pushing.
+
+If you want to set a default remote for all branches, you can also set the configuration
+variable ``remote.Pushdefault`` which overide ``branch.<name>.remote`` for all branches.
+
+The second line tell which ref on the remote should be used for fetching, pulling and
+rebasing.
+
+Together these options will cause a :gitdoc:`git pull<git-pull.html>` without remote nor
+refspec given, to merge *origin/mywork* in *mywork*.
+
+
+In the ``.git/config`` it appears as:
 
 ..  code-block:: ini
 
@@ -186,13 +211,78 @@ including:
     fetch = +refs/heads/*:refs/remotes/origin/*
 
 
-see the documentation of these two configuration options in
-:gitdoc:`git-config(1) <git-config.html>` to learn the configuration
-setting a local branch as upstream for an other local branch.
+If you track an other local branch, the *pseudo* remote is designed by a dot:
 
-..   source for article
+..  code-block:: ini
 
-    -   [[https://blogs.atlassian.com/2013/07/git-upstreams-forks/][Git Forks And Upstreams- Atlassian Blogs]]
-    -   [[http://alblue.bandlem.com/2011/07/git-tip-of-week-tracking-branches.html][Tracking Branches - AlBlue’s Blog]]
-    -   [[http://ginsys.eu/git-and-github-keeping-a-feature-branch-updated-with-upstream/][Git and Github: keeping a feature branch updated with
-        upstream?]]
+    branch.feature.remote=.
+    branch.feature.merge=refs/heads/master
+
+..  _set_upstream:
+
+Changing the upstream branch
+============================
+
+We have seen how to :ref:`create a branch and track the origin <create_and_track>`
+but you may also want change the tracking option of an existing branch, either declare
+an upstream branch for a branch which does not have one, or change the upstream branch.
+
+You can do it at the level of :ref:`upstream configuration <upstream_config>` either by using
+:gitdoc:`git-config(1) <git-config.html>`, or even by editing the ``.git/config`` file,
+but since v 1.8 git offer a new option of :gitdoc:`git-branch(1) <git-branch.html>`
+
+::
+
+    $ git branch --set-upstream-to github/master
+
+will set the upstream branch for the currently checked out branch to ``github/master``,
+this can also be done for an other branch by:
+
+::
+
+    $ git branch mywork --set-upstream-to github/master
+
+You can also do it while pushing your branch to the new remote by
+
+::
+
+    $ git push --set-upstream github/master
+
+or
+
+::
+
+    $ git push mywork --set-upstream github/master
+
+
+
+This is specially usefull whan you first created a local branch *mywork* and  then
+pushed it to *origin* as::
+
+    $ git push origin mywork
+
+will not set *origin/mywork* as remote tracking branch for *mywork*,
+except if you either explicitly issue::
+
+    $ git push --set-upstream origin mywork
+
+or you later add tracking with:
+::
+
+    $ git branch --set-upstream-to=origin/mywork mywork
+
+``--set-upstream`` (for ``git push``) or ``--set-upstream-to`` (for ``git branch``) are
+both abridged in ``-u``.
+
+If you no longer want any tracking for a branch, you can remove it with:
+::
+
+    $ git branch --unset-upstream <branch>
+
+as usual if the branch name is omitted, it applies to the current checked out branch
+
+..   source for article:
+
+     -   [[http://alblue.bandlem.com/2011/07/git-tip-of-week-tracking-branches.html][Tracking Branches - AlBlue’s Blog]]
+     -   [[http://ginsys.eu/git-and-github-keeping-a-feature-branch-updated-with-upstream/][Git and Github: keeping a feature branch updated with
+         upstream?]]
