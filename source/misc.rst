@@ -30,6 +30,9 @@ optionally with a new checked out branch::
 
     $ git-new-workdir <repository> <newworkdir> [<branch>]
 
+..  index:
+    single: git; encrypt
+    single: git; crypt
 
 Transparent encryption
 ----------------------
@@ -186,6 +189,9 @@ Junio Hamano in the article:
 or look at the `article thread
 <http://thread.gmane.org/gmane.comp.version-control.git/113124/focus=113221>`_.
 
+..  index:
+    git; wip
+
 Using git-wip
 -------------
 
@@ -193,7 +199,14 @@ Refs:
     `git-wip repository and README <https://github.com/bartman/git-wip>`_
 
 **git-wip** is a script that will manage Work In Progress
-branches.
+branches. The wip branches are in ``refs/wip`` in the repository.
+
+Usually git-wip is invoked by an editor hook, there are available for
+emacs and vim; but you can also invoke it manually with::
+
+  $ git wip
+  $ git wip -- <file>
+  $ git wip save "saved at $(date)" -- somefile
 
 To show the log of the commits in wip/master and not in master::
 
