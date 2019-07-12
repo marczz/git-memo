@@ -26,6 +26,8 @@ default value of the global ``branch.autosetupmerge`` configuration flag.
 If you want to override this global setting, you can use the option
 ``--track`` or ``--no-track``.
 
+.. _list_upstream_branch:
+
 Listing upstream branches
 =========================
 
@@ -33,26 +35,55 @@ To see what are the upstream branches of your branches you can do:
 ::
 
     $ git branch -vv
+    * master 376438d [origin/master] this commit is an example
 
 or for a specific branch *mybranch*:
 ::
 
-    $git branch -vv --list mybranch
+    $ git branch -vv --list mybranch
+    * mybranch 226f541 [gitlab/master] an other example
 
-or:
+The upstream branch is shown between brackets.
+
+You can also explore the configuration and show the remote and the default fetched
+reference *and the default pushed one if it differs from the fetched one* with:
+
 ::
 
-    $ git config branch.mybranch.merge
+    $ git config --get-regexp branch.mybranch
+    branch.mybranch.remote gitlab
+    branch.master.merge refs/heads/master
 
-To know what branch are tracked by a specific remote *origin*:
+If you want to know all the upstream branches you can do
+
 ::
 
-    $ git remote show origin
+    $ git config --get-regexp branch\\..*\\.remote
+
+To know what branches are tracked by a specific remote *origin*, and know the status of
+the local branches (up to date or out of date):
+::
+
+    $ git remote show bitbucket
+    * remote bitbucket
+      Fetch URL: git@bitbucket.org:bigjohn/repo.git
+      Push  URL: git@bitbucket.org:bigjohn/repo.git
+      HEAD branch: master
+      Remote branch:
+        master tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+
+This command will query the remote repository, if you want to know only the local
+configuration, you may add the ``-n`` option, but you will not know the status of the
+local branches.
 
 ..  _create_and_track:
 
-Create a branch and track the originw
-=====================================
+Create a branch and track the origin
+====================================
 
 Example with matching name
 --------------------------
