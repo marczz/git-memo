@@ -5,6 +5,25 @@
 
 Remote repositories
 ===================
+
+..  _remote_list:
+
+Listing configured remotes
+--------------------------
+
+To know what are the name of the configured remotes::
+
+  $ git remote
+
+To list also the url::
+
+  $ git remote -v
+
+To show how is configured one remote, and also
+:ref:`list which branches are tracked <list_upstream_branch>`::
+
+       $ git remote show <remote name>
+
 ..  index::
     git; clone
     single: remote; clone
@@ -31,13 +50,12 @@ maps all remote refs in the local repository.
 
 Adding a new remote
 -------------------
-In my local ``git-memo`` repository:
+To add a new remote called ``myserver``, in my local ``git-memo`` repository, I do:
 ::
 
     git remote add myserver git://myserver.com/cramz/git-memo.git
 
-add a new remote called ``myserver``, this does not fetch or push, or
-checkout anything, but the next:
+this does not fetch or push, or checkout anything, but the next:
 ::
 
     git fetch
@@ -58,32 +76,12 @@ To fetch all remotes::
 
     $ git remote update
 
-..  index:: single:remote; config
-
-..  _remote_config:
-
-Remote configuration
---------------------
-
-To get remotes configuration  we can edit .git/config or
-
-::
-
-    $ git config --get-regexp 'remote'
-    remote.etc.url /shared/home/marc/crypt/gits/etc_shared.git
-    remote.etc.fetch +refs/remotes/etc/*:refs/remotes/etc/*
-    remote.etc.tagopt --no-tags
-
-
-or add options with gitdoc:`git-config(1)<git-config.html>` like::
-
-    $ git config --add remote.etc.tagopt --no-tags
 
 ..  index:: single: remote; bare
 
 ..  _creating_bare_remote:
 
-creating a bare remote repository
+Creating a bare remote repository
 ---------------------------------
 You can either transfer a local bare repository or create an empty
 remote and push your branches.
@@ -118,7 +116,7 @@ simply omit the ``--bare`` option.
     single: remote; push
     single: remote; delete branch
 
-push and delete remote branches
+Push and delete remote branches
 -------------------------------
 
 To push a new branch::
